@@ -1,5 +1,4 @@
 <script setup>
-
 const issueNum = ref(0);
 const dateNum = ref(0);
 

@@ -5,30 +5,30 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
     timeline: {
-      enabled: true
-    }
+      enabled: true,
+    },
   },
   modules: ['@nuxtjs/tailwindcss', '@nuxthub/core'],
-  plugins: ["~/plugins/flyonui.client.ts"],
+  plugins: ['~/plugins/flyonui.client.ts'],
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
   },
 
   runtimeConfig: {
+    manager_passwd: process.env.MANAGER_PASSWD,
     public: {
-      backendUrl: process.env.BACKEND_URL
-    }
+      backendUrl: process.env.BACKEND_URL,
+    },
   },
 
   hub: {
     database: true,
-
   },
 
   $development: {
     hub: {
-      remote: "production"
-    }
-  }
-})
+      remote: 'production',
+    },
+  },
+});

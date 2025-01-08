@@ -18,9 +18,9 @@ const reswithverifycode = ref({
 
 const backendUrl = useRuntimeConfig().public.backendUrl;
 async function getVerifyCode() {
-  reswithverifycode.value.verifycode_url = await $fetch("/api/verifycode?_=" + Date.now(), {
+  reswithverifycode.value.verifycode_url = await $fetch('/api/verifycode?_=' + Date.now(), {
     method: 'GET',
-    baseURL: backendUrl
+    baseURL: backendUrl,
   });
 }
 
@@ -31,11 +31,11 @@ const alertInfo = ref({
 
 async function submit() {
   let postJson = reswithverifycode.value;
-  alertInfo.value.info = await $fetch("/api/issue", {
+  alertInfo.value.info = await $fetch('/api/issue', {
     method: 'PUT',
     baseURL: backendUrl,
     body: postJson,
-  })
+  });
 }
 
 const hasChecked = ref({

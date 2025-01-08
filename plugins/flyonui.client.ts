@@ -1,5 +1,5 @@
-import "flyonui/flyonui";
-import { type IStaticMethods } from "flyonui/flyonui";
+import 'flyonui/flyonui';
+import { type IStaticMethods } from 'flyonui/flyonui';
 declare global {
   interface Window {
     HSStaticMethods: IStaticMethods;
@@ -7,7 +7,7 @@ declare global {
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.hook("page:finish", () => {
+  nuxtApp.hook('page:finish', () => {
     window.HSStaticMethods.autoInit();
   });
 });

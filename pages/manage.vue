@@ -3,27 +3,33 @@ const passwd = ref('');
 const issueList = ref([]);
 
 const backendUrl = useRuntimeConfig().public.backendUrl;
-const getIssueList = async () => {
-  const response = await $fetch('/api/issue', {
+async function getIssueList() {
+  issueList.value = await $fetch('/api/issue_list', {
     query: { passwd: passwd.value },
-    baseURL: backendUrl
   });
-  issueList.value = response.slice(0, 32);
-};
-const toggleIssue = async (issueId) => {
-  await $fetch(`/api/issue?passwd=${passwd.value}&id=${issueId}`, {
-    method: 'POST',
-    baseURL: backendUrl
+  issueList.value = issueList.value.map((issue) => {
+    issue.app_time = new Date(Number(issue.app_time) + 8 * 60 * 60000).toISOString();
+    issue.reg_time = new Date(Number(issue.reg_time) + 8 * 60 * 60000).toISOString().replace('T', ' ');
+    issue.closed_time = new Date(Number(issue.closed_time) + 8 * 60 * 60000).toISOString().replace('T', ' ');
+    return issue;
   });
-  getIssueList();
-};
-const deleteIssue = async (issueId) => {
+}
+async function toggleIssue(issueId) {
+  await $fetch(`/api/toggle_issue`, {
+    query: {
+      passwd: passwd.value,
+      id: issueId,
+    },
+  });
+  await getIssueList();
+}
+async function deleteIssue(issueId) {
   await $fetch(`/api/issue?passwd=${passwd.value}&id=${issueId}`, {
     method: 'DELETE',
-    baseURL: backendUrl
+    baseURL: backendUrl,
   });
-  getIssueList();
-};
+  await getIssueList();
+}
 </script>
 
 <template>
