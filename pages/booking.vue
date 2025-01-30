@@ -1,8 +1,5 @@
 <script setup>
-const reswithverifycode = ref({
-  verifycode: '',
-  verifycode_url: '',
-  response: {
+const formData = ref({
     id: null,
     uid: '',
     name: '',
@@ -13,15 +10,7 @@ const reswithverifycode = ref({
     app_time: '',
     closed: false,
     closed_time: null,
-  },
 });
-const verifycode_svg = ref('');
-
-async function getVerifyCode() {
-  const { verifycode_url, svgBase64 } = await $fetch('/api/get_verifycode');
-  verifycode_svg.value = svgBase64;
-  reswithverifycode.value.verifycode_url = verifycode_url;
-}
 
 const alertInfo = ref({
   info: '',
@@ -29,45 +18,41 @@ const alertInfo = ref({
 });
 
 async function submit() {
-  const postJson = reswithverifycode.value;
+  const postJson = formData.value;
   alertInfo.value.error = '';
   alertInfo.value.info = '';
-  if (postJson.response.name == '') {
+  if (postJson.name == '') {
     alertInfo.value.error = '请填写姓名';
     return;
   }
-  if (postJson.response.uid == '') {
+  if (postJson.uid == '') {
     alertInfo.value.error = '请填写学号';
     return;
   }
-  if (postJson.response.phone == '') {
+  if (postJson.phone == '') {
     alertInfo.value.error = '请填写电话';
     return;
   }
-  if (postJson.response.class == '') {
+  if (postJson.class == '') {
     alertInfo.value.error = '请填写班级';
     return;
   }
-  if (postJson.response.problem == '') {
+  if (postJson.problem == '') {
     alertInfo.value.error = '请填写详情';
     return;
   }
-  if (postJson.verifycode == '') {
-    alertInfo.value.error = '请填写验证码';
-    return;
-  }
-  if (postJson.response.app_time == null) {
+  if (postJson.app_time == null) {
     alertInfo.value.error = '请选择预约日期';
     return;
   }
-  // if (postJson.response.phone.length != 11) {
-  //   alertInfo.value.error = '请填写11位电话';
-  //   return;
-  // }
-  // if (postJson.response.uid.length != 11) {
-  //   alertInfo.value.error = '请填写11位学号';
-  //   return;
-  // }
+  if (postJson.phone.length != 11) {
+    alertInfo.value.error = '请填写11位电话';
+    return;
+  }
+  if (postJson.uid.length != 11) {
+    alertInfo.value.error = '请填写11位学号';
+    return;
+  }
   $fetch('/api/new_issue', {
     method: 'PUT',
     body: postJson,
@@ -85,10 +70,6 @@ const hasChecked = ref({
   triedMyself: false,
   describedInDetail: false,
   comeEarly: false,
-});
-
-onMounted(() => {
-  getVerifyCode();
 });
 </script>
 
@@ -120,30 +101,24 @@ onMounted(() => {
       <div class="h-0.5 min-w-fit my-8 bg-gray-100 lg:w-0.5 lg:h-auto lg:my-0"></div>
       <div class="max-w-lg space-y-2 mx-4">
         <div class="flex items-center gap-x-2 w-full">
-          <Input label="姓名" altLabel="你的真实姓名" v-model="reswithverifycode.response.name" />
-          <Input label="学号" altLabel="你的11位学号" v-model="reswithverifycode.response.uid" />
+          <Input label="姓名" altLabel="你的真实姓名" v-model="formData.name" />
+          <Input label="学号" altLabel="你的11位学号" v-model="formData.uid" />
         </div>
-        <Input label="电话" altLabel="用于特殊情况通知" v-model="reswithverifycode.response.phone" />
+        <Input label="电话" altLabel="用于特殊情况通知" v-model="formData.phone" />
         <div class="flex items-center gap-x-2 w-full">
-          <Input label="班级" altLabel="例: 22计算机教育B班" v-model="reswithverifycode.response.class" />
-          <InputVerify
-            label="验证码"
-            altLabel="请输入全小写"
-            v-model="reswithverifycode.verifycode"
-            :verifySVG="verifycode_svg"
-          />
+          <Input label="班级" altLabel="例: 22计算机教育B班" v-model="formData.class" />
         </div>
         <label class="form-control w-full">
           <div class="label">
             <span class="label-text text-xs"> 预约日期 </span>
           </div>
-          <DatePicker v-model="reswithverifycode.response.app_time" class="w-full" />
+          <DatePicker v-model="formData.app_time" class="w-full" />
         </label>
         <label class="form-control w-full">
           <div class="label">
             <span class="label-text text-xs"> 详细问题 </span>
           </div>
-          <textarea class="textarea h-25 p-1" v-model="reswithverifycode.response.problem"></textarea>
+          <textarea class="textarea h-25 p-1" v-model="formData.problem"></textarea>
           <div class="label">
             <span class="label-text-alt"> 尽可能详细地说明问题以及前因后果,最好备注上电脑型号 </span>
           </div>
