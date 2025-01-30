@@ -25,7 +25,7 @@ const getDatesRange = (currentDate, days) => {
 
 datesList.value = getDatesRange(new Date(), 5);
 const selectDate = (date) => {
-  dateModel.value = new Date(date.date.getTime() + 8 * 3600000).toISOString().slice(0, 10) + 'T00:00:00.000000000';
+  dateModel.value = Number(date.date);
 };
 </script>
 

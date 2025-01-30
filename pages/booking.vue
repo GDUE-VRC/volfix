@@ -15,13 +15,13 @@ const reswithverifycode = ref({
     closed_time: null,
   },
 });
+const verifycode_svg = ref('');
 
 const backendUrl = useRuntimeConfig().public.backendUrl;
 async function getVerifyCode() {
-  reswithverifycode.value.verifycode_url = await $fetch('/api/verifycode?_=' + Date.now(), {
-    method: 'GET',
-    baseURL: backendUrl,
-  });
+  const {verifycode_url, svgBase64} = await $fetch('/api/get_verifycode');
+  verifycode_svg.value = svgBase64;
+  reswithverifycode.value.verifycode_url = verifycode_url;
 }
 
 const alertInfo = ref({
@@ -30,10 +30,9 @@ const alertInfo = ref({
 });
 
 async function submit() {
-  let postJson = reswithverifycode.value;
-  alertInfo.value.info = await $fetch('/api/issue', {
+  const postJson = reswithverifycode.value;
+  alertInfo.value.info = await $fetch('/api/new_issue', {
     method: 'PUT',
-    baseURL: backendUrl,
     body: postJson,
   });
 }
@@ -88,7 +87,7 @@ onMounted(() => {
             label="验证码"
             altLabel="请输入全小写"
             v-model="reswithverifycode.verifycode"
-            :verifyUrl="reswithverifycode.verifycode_url"
+            :verifySVG="verifycode_svg"
           />
         </div>
         <label class="form-control w-full">

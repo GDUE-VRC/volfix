@@ -7,7 +7,7 @@
       type="text"
       class="input bg-right bg-[length:78px_36px] bg-no-repeat"
       v-model="data"
-      :style="'background-image: url(' + verifyUrl + ')'"
+      :style="'background-image: ' + 'url(' + verifySVG + ')' "
     />
     <div class="label">
       <span class="label-text-alt">{{ altLabel }}</span>
@@ -27,7 +27,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  verifyUrl: {
+  verifySVG: {
     type: String,
   },
 });
