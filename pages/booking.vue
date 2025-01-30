@@ -11,7 +11,7 @@ const reswithverifycode = ref({
     problem: '',
     reg_time: null,
     app_time: '',
-    closed: null,
+    closed: false,
     closed_time: null,
   },
 });

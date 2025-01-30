@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     width: 180,
     height: 80,
   });
-  const verifycode_url = md5(btoa(svg.text));
+  const verifycode_url = md5(btoa(svg.text.toLowerCase()));
   const svgBase64 = 'data:image/svg+xml;base64,' + btoa(svg.data.toString());
   return {
     verifycode_url: verifycode_url,
