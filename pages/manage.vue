@@ -24,9 +24,11 @@ async function toggleIssue(issueId) {
   await getIssueList();
 }
 async function deleteIssue(issueId) {
-  await $fetch(`/api/issue?passwd=${passwd.value}&id=${issueId}`, {
-    method: 'DELETE',
-    baseURL: backendUrl,
+  await $fetch(`/api/delet_issue`, {
+    query: {
+      passwd: passwd.value,
+      id: issueId,
+    },
   });
   await getIssueList();
 }
