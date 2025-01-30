@@ -2,7 +2,6 @@
 const passwd = ref('');
 const issueList = ref([]);
 
-const backendUrl = useRuntimeConfig().public.backendUrl;
 async function getIssueList() {
   issueList.value = await $fetch('/api/issue_list', {
     query: { passwd: passwd.value },

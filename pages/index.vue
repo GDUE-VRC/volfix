@@ -2,7 +2,6 @@
 const issueNum = ref(0);
 const dateNum = ref(0);
 
-const backendUrl = useRuntimeConfig().public.backendUrl;
 issueNum.value = await $fetch('/api/issue_num');
 dateNum.value = await $fetch('/api/date_num');
 </script>
