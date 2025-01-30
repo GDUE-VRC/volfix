@@ -31,10 +31,54 @@ const alertInfo = ref({
 
 async function submit() {
   const postJson = reswithverifycode.value;
-  alertInfo.value.info = await $fetch('/api/new_issue', {
+  alertInfo.value.error = '';
+  alertInfo.value.info = '';
+  if (postJson.response.name == '') {
+    alertInfo.value.error = '请填写姓名';
+    return;
+  }
+  if (postJson.response.uid == '') {
+    alertInfo.value.error = '请填写学号';
+    return;
+  }
+  if (postJson.response.phone == '') {
+    alertInfo.value.error = '请填写电话';
+    return;
+  }
+  if (postJson.response.class == '') {
+    alertInfo.value.error = '请填写班级';
+    return;
+  }
+  if (postJson.response.problem == '') {
+    alertInfo.value.error = '请填写详情';
+    return;
+  }
+  if (postJson.verifycode == '') {
+    alertInfo.value.error = '请填写验证码';
+    return;
+  }
+  if (postJson.response.app_time == null) {
+    alertInfo.value.error = '请选择预约日期';
+    return;
+  }
+  // if (postJson.response.phone.length != 11) {
+  //   alertInfo.value.error = '请填写11位电话';
+  //   return;
+  // }
+  // if (postJson.response.uid.length != 11) {
+  //   alertInfo.value.error = '请填写11位学号';
+  //   return;
+  // }
+  $fetch('/api/new_issue', {
     method: 'PUT',
     body: postJson,
-  });
+  })
+    .then((response) => {
+      alertInfo.value.info = response;
+    })
+    .catch((error) => {
+      alertInfo.value.error = error.response._data.message;
+    });
 }
 
 const hasChecked = ref({
