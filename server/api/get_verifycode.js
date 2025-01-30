@@ -1,5 +1,10 @@
 import svgCaptcha from 'svg-captcha';
 import md5 from 'js-md5';
+import { fileURLToPath } from 'node:url'; // 新增导入
+import { dirname } from 'node:path'; // 新增导入
+
+// 定义 __dirname
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineEventHandler(async (event) => {
   try {
