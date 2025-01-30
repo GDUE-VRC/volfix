@@ -1,4 +1,6 @@
-import svgCaptcha from 'svg-captcha';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+var svgCaptcha = require('svg-captcha');
 import md5 from 'js-md5';
 import { fileURLToPath } from 'node:url'; // 新增导入
 import { dirname } from 'node:path'; // 新增导入
