@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "fmt": "prettier --write ."
+    "fmt": "prettier --write .",
+    "clean": "rimraf .nuxt .output node_modules dist || true"
   },
   "dependencies": {
     "@nuxthub/core": "0.8.10",
