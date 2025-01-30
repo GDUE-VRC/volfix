@@ -1,12 +1,10 @@
 <script setup>
-import { Analytics } from '@vercel/analytics/nuxt';
 useHead({
   title: '电脑义务维修中心',
 });
 </script>
 
 <template>
-  <Analytics />
   <div class="min-h-screen flex flex-col bg-base-100">
     <Header />
     <div class="alert alert-error alert-soft border-none rounded-none text-center mb-2">
