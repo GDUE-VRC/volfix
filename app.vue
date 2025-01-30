@@ -1,5 +1,8 @@
 <script setup>
 import { Analytics } from '@vercel/analytics/nuxt';
+useHead({
+  title: '电脑义务维修中心',
+});
 </script>
 
 <template>
