@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
   if (issueStatus.closed) {
     await db.prepare('update issues set closed = 0 where id = ?').bind(id).run();
   } else {
-    console.log();
-    // await db.prepare('update issue set closed = 1 closed_time = ? where id = ?').bind(Date.now(), id).run();
+    await db.prepare('update issues set closed = 1, closed_time = ?1 where id = ?2').bind(Date.now(), id).run();
   }
 });
