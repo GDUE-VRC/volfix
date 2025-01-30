@@ -19,7 +19,7 @@ const verifycode_svg = ref('');
 
 const backendUrl = useRuntimeConfig().public.backendUrl;
 async function getVerifyCode() {
-  const {verifycode_url, svgBase64} = await $fetch('/api/get_verifycode');
+  const { verifycode_url, svgBase64 } = await $fetch('/api/get_verifycode');
   verifycode_svg.value = svgBase64;
   reswithverifycode.value.verifycode_url = verifycode_url;
 }

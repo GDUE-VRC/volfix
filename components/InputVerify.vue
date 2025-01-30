@@ -7,7 +7,7 @@
       type="text"
       class="input bg-right bg-[length:78px_36px] bg-no-repeat"
       v-model="data"
-      :style="'background-image: ' + 'url(' + verifySVG + ')' "
+      :style="'background-image: ' + 'url(' + verifySVG + ')'"
     />
     <div class="label">
       <span class="label-text-alt">{{ altLabel }}</span>
