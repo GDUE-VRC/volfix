@@ -11,8 +11,8 @@ dateNum.value = await $fetch('/api/date_num');
     <div class="max-w-lg gap-12 justify-center lg:flex lg:max-w-none">
       <div class="max-w-lg mx-4 flex flex-col space-y-4">
         <div>
-          <h1 class="text-4xl font-bold text-base-content">广东第二师范学院</h1>
-          <h1 class="text-4xl font-bold text-primary ml-14">电脑义务维修中心</h1>
+          <h1 class="text-3xl md:text-4xl font-bold text-base-content">广东第二师范学院</h1>
+          <h1 class="text-3xl md:text-4xl font-bold text-primary ml-14">电脑义务维修中心</h1>
         </div>
         <p class="text-base-content">
           电脑义务维修中心于2015年9月创办, 是计算机学院学生党支部旗下的一支公益性特色服务团队, 以电脑维修工作为重点,
@@ -29,7 +29,7 @@ dateNum.value = await $fetch('/api/date_num');
       </div>
       <div class="h-0.5 min-w-fit my-8 bg-gray-100 lg:w-0.5 lg:h-auto lg:my-0"></div>
       <div class="max-w-lg mx-4 flex flex-col space-y-4">
-        <h1 class="text-4xl font-bold text-base-content">关于我们</h1>
+        <h1 class="text-3xl md:text-4xl font-bold text-base-content">关于我们</h1>
         <div class="flex space-x-2">
           <h1 class="text-2xl mt-auto font-bold text-base-content">累计维修</h1>
           <h1 class="text-3xl font-bold text-primary w-20 text-center">
