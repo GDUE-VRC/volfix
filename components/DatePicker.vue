@@ -25,7 +25,9 @@ const getDatesRange = (currentDate, days) => {
 
 datesList.value = getDatesRange(new Date(), 5);
 const selectDate = (date) => {
-  dateModel.value = Number(date.date);
+  const d = new Date(date.date);
+  d.setUTCHours(0, 0, 0, 0);
+  dateModel.value = d.getTime();
 };
 </script>
 
