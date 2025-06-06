@@ -17,6 +17,8 @@ const alertInfo = ref({
   error: '',
 });
 
+const loading = ref(false);
+
 async function submit() {
   const postJson = formData.value;
   alertInfo.value.error = '';
@@ -53,6 +55,7 @@ async function submit() {
     alertInfo.value.error = '请填写11位学号';
     return;
   }
+  loading.value = true;
   $fetch('/api/new_issue', {
     method: 'PUT',
     body: postJson,
@@ -62,6 +65,9 @@ async function submit() {
     })
     .catch((error) => {
       alertInfo.value.error = error.response._data.message;
+    })
+    .finally(() => {
+      loading.value = false;
     });
 }
 
@@ -160,7 +166,7 @@ const hasChecked = ref({
             </label>
           </div>
           <button v-show="!hasChecked.comeEarly" class="btn text-sm btn-disabled">提交预约</button>
-          <button @click="submit()" v-show="hasChecked.comeEarly" class="btn text-sm btn-primary">提交预约</button>
+          <button @click="submit()" v-show="hasChecked.comeEarly" class="btn text-sm btn-primary" :disabled="loading">{{ loading ? '提交中...' : '提交预约' }}</button>
         </div>
         <div>
           <div v-if="alertInfo.info" class="alert alert-success mt-4" role="alert">
