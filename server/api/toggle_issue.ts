@@ -21,5 +21,5 @@ export default defineEventHandler(async (event) => {
     return
   }
 
-  await db.update(issues).set({ closed: true, closedTime: Date.now() }).where(eq(issues.id, issueId))
+  await db.update(issues).set({ closed: true, closedTime: String(Date.now()) }).where(eq(issues.id, issueId))
 })

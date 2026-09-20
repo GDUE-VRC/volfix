@@ -1,17 +1,18 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema } from 'drizzle-zod'
+import { z } from 'zod'
 
 export const issues = sqliteTable('issues', {
   id: integer().primaryKey({ autoIncrement: true }),
   uid: text().notNull(),
   name: text().notNull(),
   class: text().notNull(),
-  problem: text().notNull(),
   phone: text().notNull(),
-  regTime: integer('reg_time').notNull(),
-  appTime: integer('app_time').notNull(),
-  closed: integer({ mode: 'boolean' }).notNull().default(false),
-  closedTime: integer('closed_time'),
+  problem: text().notNull(),
+  regTime: text('reg_time').notNull(),
+  appTime: text('app_time').notNull(),
+  closed: integer({ mode: 'boolean' }).notNull(),
+  closedTime: text('closed_time'),
 })
 
 export type Issue = typeof issues.$inferSelect
@@ -23,4 +24,5 @@ export const insertIssueSchema = createInsertSchema(issues, {
   name: schema => schema.min(1, '请填写姓名'),
   class: schema => schema.min(1, '请填写班级'),
   problem: schema => schema.min(1, '请填写详情'),
+  appTime: () => z.coerce.string().regex(/^\d+$/, '请选择预约日期'),
 }).omit({ id: true, regTime: true, closed: true, closedTime: true })

@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS `issues` (
 	`uid` text NOT NULL,
 	`name` text NOT NULL,
 	`class` text NOT NULL,
-	`problem` text NOT NULL,
 	`phone` text NOT NULL,
-	`reg_time` integer NOT NULL,
-	`app_time` integer NOT NULL,
-	`closed` integer DEFAULT false NOT NULL,
-	`closed_time` integer
+	`problem` text NOT NULL,
+	`reg_time` text NOT NULL,
+	`app_time` text NOT NULL,
+	`closed` integer NOT NULL,
+	`closed_time` text
 );

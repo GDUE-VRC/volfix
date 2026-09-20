@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "5e31c75e-24e5-401d-9d63-3c765de37b60",
+  "id": "8657428e-1a6e-4dae-89c9-12336d51dd11",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "issues": {
@@ -35,13 +35,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "problem": {
-          "name": "problem",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "phone": {
           "name": "phone",
           "type": "text",
@@ -49,16 +42,23 @@
           "notNull": true,
           "autoincrement": false
         },
+        "problem": {
+          "name": "problem",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "reg_time": {
           "name": "reg_time",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "app_time": {
           "name": "app_time",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -68,12 +68,11 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": false
+          "autoincrement": false
         },
         "closed_time": {
           "name": "closed_time",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
