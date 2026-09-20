@@ -1,3 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin 'flyonui' {
+  themes: corporate;
+}
+
+@plugin '@iconify/tailwind4';
+
+@import '../node_modules/flyonui/variants.css';
+@source '../node_modules/flyonui/dist/index.js';

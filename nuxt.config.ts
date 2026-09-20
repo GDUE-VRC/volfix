@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import process from 'node:process'
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   ssr: false,
@@ -8,8 +11,13 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxthub/core'],
+  modules: ['@nuxthub/core'],
   plugins: ['~/plugins/flyonui.client.ts'],
+  css: ['~/assets/main.css'],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -23,7 +31,7 @@ export default defineNuxtConfig({
   },
 
   hub: {
-    database: true,
+    db: 'sqlite',
   },
 
   $development: {
@@ -31,4 +39,4 @@ export default defineNuxtConfig({
       remote: 'production',
     },
   },
-});
+})
