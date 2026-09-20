@@ -33,10 +33,4 @@ export default defineNuxtConfig({
   hub: {
     db: 'sqlite',
   },
-
-  $development: {
-    hub: {
-      remote: 'production',
-    },
-  },
 })

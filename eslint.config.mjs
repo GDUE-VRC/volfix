@@ -4,6 +4,7 @@ export default antfu(
   {
     vue: true,
     typescript: true,
+    ignores: ['server/db/migrations/**'],
   },
   {
     rules: {
