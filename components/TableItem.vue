@@ -50,12 +50,15 @@ function getWeekday(dateString) {
         </template>
 
         <DialogClose as-child>
-          <AppButton variant="ghost" class="absolute end-3 top-3" aria-label="关闭">
+          <button
+            class="absolute end-3 top-3 inline-flex size-8 cursor-pointer items-center justify-center rounded-full text-base-content transition-colors hover:bg-base-content/10"
+            aria-label="关闭"
+          >
             <Icon name="lucide:x" class="size-4" />
-          </AppButton>
+          </button>
         </DialogClose>
 
-        <div class="space-y-1 text-sm">
+        <div class="space-y-1">
           <p><strong>姓名:</strong> {{ issue.name }}</p>
           <p><strong>班级:</strong> {{ issue.class }}</p>
           <p><strong>学号:</strong> {{ issue.uid }}</p>

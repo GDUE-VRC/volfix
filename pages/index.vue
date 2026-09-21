@@ -46,7 +46,7 @@ dateNum.value = await $fetch('/api/date_num')
           </div>
         </div>
       </div>
-      <div class="h-0.5 min-w-fit my-8 bg-gray-100 lg:w-0.5 lg:h-auto lg:my-0" />
+      <div class="h-0.5 min-w-fit my-8 bg-base-200 lg:w-0.5 lg:h-auto lg:my-0" />
       <div class="max-w-lg mx-4 flex flex-col space-y-4">
         <h1 class="text-3xl md:text-4xl font-bold text-base-content">
           关于我们
