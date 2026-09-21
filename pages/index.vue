@@ -22,16 +22,27 @@ dateNum.value = await $fetch('/api/date_num')
           电脑义务维修中心于2015年9月创办, 是计算机学院学生党支部旗下的一支公益性特色服务团队, 以电脑维修工作为重点,
           以丰富校园科技文化为己任. 为切实弘扬志愿服务精神, 本中心无偿为全校师生提供电脑义务维修服务.
         </p>
-        <div class="flex flex-wrap">
-          <NuxtLink to="/booking" class="btn btn-primary btn-soft mr-4 mb-4">
+        <div class="flex flex-wrap items-center gap-4">
+          <AppButton variant="soft" color="primary" @click="navigateTo('/booking')">
             预约维修
-          </NuxtLink>
-          <div class="join">
-            <a href="https://qm.qq.com/q/flBStssyFa" class="btn btn-soft join-item" target="_blank"> QQ咨询群 </a>
-            <a href="https://doc.pcywwxzx.top" class="btn btn-soft join-item" target="_blank"> 维修文档 </a>
-            <NuxtLink to="/manage" class="btn btn-soft join-item">
+          </AppButton>
+          <div class="flex">
+            <a
+              href="https://qm.qq.com/q/flBStssyFa"
+              target="_blank"
+              class="flex items-center rounded-s-md bg-base-200 px-4 py-2 text-base-content transition-colors hover:bg-base-content/15"
+            > QQ咨询群 </a>
+            <a
+              href="https://doc.pcywwxzx.top"
+              target="_blank"
+              class="flex items-center border-x-1 border-base-content/15 bg-base-200 px-4 py-2 text-base-content transition-colors hover:bg-base-content/15"
+            > 维修文档 </a>
+            <button
+              class="flex items-center rounded-e-md bg-base-200 px-4 py-2 text-base-content transition-colors hover:bg-base-content/15"
+              @click="navigateTo('/manage')"
+            >
               管理后台
-            </NuxtLink>
+            </button>
           </div>
         </div>
       </div>
