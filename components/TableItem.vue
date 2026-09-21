@@ -45,13 +45,13 @@ function getWeekday(dateString) {
             class="inline-flex size-8 cursor-pointer items-center justify-center rounded-full text-base-content transition-colors hover:bg-base-content/10"
             aria-label="查看详情"
           >
-            <span class="icon-[mdi--eye-outline]" />
+            <Icon name="lucide:eye" class="size-4" />
           </button>
         </template>
 
         <DialogClose as-child>
           <AppButton variant="ghost" class="absolute end-3 top-3" aria-label="关闭">
-            <span class="icon-[tabler--x]" />
+            <Icon name="lucide:x" class="size-4" />
           </AppButton>
         </DialogClose>
 
@@ -98,7 +98,7 @@ function getWeekday(dateString) {
         aria-label="标记为已维修"
         @click="$emit('toggleIssue')"
       >
-        <span class="icon-[mdi--check]" />
+        <Icon name="lucide:check" class="size-4" />
       </button>
       <button
         v-show="issue.closed"
@@ -106,7 +106,7 @@ function getWeekday(dateString) {
         aria-label="标记为未维修"
         @click="$emit('toggleIssue')"
       >
-        <span class="icon-[mdi--close]" />
+        <Icon name="lucide:x" class="size-4" />
       </button>
     </td>
   </tr>

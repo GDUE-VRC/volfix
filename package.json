@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@libsql/client": "^0.18.0",
+    "@nuxt/icon": "^2.5.1",
     "@nuxthub/core": "^0.10.8",
     "drizzle-orm": "^0.45.2",
     "drizzle-zod": "^0.8.3",
@@ -24,8 +25,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
-    "@iconify/json": "^2.2.530",
-    "@iconify/tailwind4": "^1.2.3",
+    "@iconify-json/lucide": "^1.2.134",
     "@tailwindcss/vite": "^4.3.3",
     "drizzle-kit": "^0.31.10",
     "eslint": "^10.11.0",

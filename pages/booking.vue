@@ -95,13 +95,13 @@ const hasChecked = ref({
           已充分了解并同意此免责声明, 感谢您的理解与支持!
         </p>
         <div class="flex items-center gap-x-2">
-          <span class="flex-none text-base-content/40 scale-110 icon-[material-symbols--schedule-outline]" />
+          <Icon name="lucide:clock" class="flex-none scale-110 text-base-content/40" />
           <p class="text-sm text-base-content">
             工作日 19:00 - 20:00
           </p>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="flex-none text-base-content/40 scale-110 icon-[material-symbols--location-on-outline]" />
+          <Icon name="lucide:map-pin" class="flex-none scale-110 text-base-content/40" />
           <p class="text-sm text-base-content">
             学生宿舍一栋三楼西南侧
           </p>
@@ -139,26 +139,26 @@ const hasChecked = ref({
           <div class="flex flex-col space-y-4">
             <label class="flex cursor-pointer items-center">
               <AppCheckbox v-model="hasChecked.userAgreement" class="mr-2">
-                <span class="icon-[mdi--check]" />
+                <Icon name="lucide:check" class="size-3" />
               </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm lg:hidden flex">我已阅读并同意上侧条款</div>
               <div class="my-auto font-medium text-base-content text-sm hidden lg:flex">我已阅读并同意左侧条款</div>
             </label>
             <label v-show="hasChecked.userAgreement" class="flex cursor-pointer items-center">
               <AppCheckbox v-model="hasChecked.triedMyself" class="mr-2">
-                <span class="icon-[mdi--check]" />
+                <Icon name="lucide:check" class="size-3" />
               </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm">我已尝试搜索问题并自己解决</div>
             </label>
             <label v-show="hasChecked.triedMyself" class="flex cursor-pointer items-center">
               <AppCheckbox v-model="hasChecked.describedInDetail" class="mr-2">
-                <span class="icon-[mdi--check]" />
+                <Icon name="lucide:check" class="size-3" />
               </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm">我已尽可能详细地描述问题</div>
             </label>
             <label v-show="hasChecked.describedInDetail" class="flex cursor-pointer items-center">
               <AppCheckbox v-model="hasChecked.comeEarly" class="mr-2">
-                <span class="icon-[mdi--check]" />
+                <Icon name="lucide:check" class="size-3" />
               </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm">我会尽量早来不让工作人员加班</div>
             </label>

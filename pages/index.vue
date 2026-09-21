@@ -85,13 +85,13 @@ dateNum.value = await $fetch('/api/date_num')
           </h1>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="flex-none text-gray-400 scale-110 icon-[material-symbols--schedule-outline]" />
+          <Icon name="lucide:clock" class="flex-none scale-110 text-base-content/40" />
           <p class="text-sm text-base-content">
             工作日 19:00 - 20:00
           </p>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="flex-none text-gray-400 scale-110 icon-[material-symbols--location-on-outline]" />
+          <Icon name="lucide:map-pin" class="flex-none scale-110 text-base-content/40" />
           <p class="text-sm text-base-content">
             学生宿舍一栋三楼西南侧
           </p>

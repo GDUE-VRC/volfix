@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@plugin '@iconify/tailwind4';
 
 @theme {
   --color-base-100: oklch(99.43% 0.001 286.38);

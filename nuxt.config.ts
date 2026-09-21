@@ -11,8 +11,16 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxthub/core', 'reka-ui/nuxt'],
+  modules: ['@nuxthub/core', 'reka-ui/nuxt', '@nuxt/icon'],
   css: ['~/assets/main.css'],
+
+  icon: {
+    mode: 'css',
+    cssLayer: 'base',
+    clientBundle: {
+      scan: true,
+    },
+  },
 
   vite: {
     plugins: [tailwindcss()],
