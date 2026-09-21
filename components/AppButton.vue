@@ -19,7 +19,7 @@ const VARIANTS = {
     neutral: 'bg-base-200 text-base-content hover:bg-base-content/15',
     primary: 'bg-primary text-white hover:bg-primary/90',
     success: 'bg-success text-white hover:bg-success/90',
-    warning: 'bg-warning text-base-content hover:bg-warning/90',
+    warning: 'bg-warning text-black hover:bg-warning/90',
     error: 'bg-error text-white hover:bg-error/90',
   },
   soft: {

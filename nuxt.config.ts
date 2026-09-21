@@ -11,8 +11,12 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxthub/core', 'reka-ui/nuxt', '@nuxt/icon', 'nuxt-auth-utils'],
+  modules: ['@nuxthub/core', 'reka-ui/nuxt', '@nuxt/icon', 'nuxt-auth-utils', '@nuxtjs/color-mode'],
   css: ['~/assets/main.css'],
+
+  colorMode: {
+    classSuffix: '',
+  },
 
   icon: {
     mode: 'css',

@@ -24,7 +24,7 @@ function close() {
     </DialogTrigger>
 
     <DialogPortal>
-      <DialogOverlay class="fixed inset-0 z-40 bg-base-content/40" />
+      <DialogOverlay class="fixed inset-0 z-40 bg-black/50" />
       <DialogContent class="fixed top-1/2 left-1/2 z-50 max-h-[85vh] w-[90vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-lg bg-base-100 p-5 shadow-xl">
         <DialogTitle class="text-lg font-semibold text-base-content">
           {{ title }}
