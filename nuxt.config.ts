@@ -11,8 +11,7 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxthub/core'],
-  plugins: ['~/plugins/flyonui.client.ts'],
+  modules: ['@nuxthub/core', 'reka-ui/nuxt'],
   css: ['~/assets/main.css'],
 
   vite: {
