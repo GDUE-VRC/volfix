@@ -95,91 +95,86 @@ const hasChecked = ref({
           已充分了解并同意此免责声明, 感谢您的理解与支持!
         </p>
         <div class="flex items-center gap-x-2">
-          <span class="flex-none text-gray-400 scale-110 icon-[material-symbols--schedule-outline]" />
+          <span class="flex-none text-base-content/40 scale-110 icon-[material-symbols--schedule-outline]" />
           <p class="text-sm text-base-content">
             工作日 19:00 - 20:00
           </p>
         </div>
         <div class="flex items-center gap-x-2">
-          <span class="flex-none text-gray-400 scale-110 icon-[material-symbols--location-on-outline]" />
+          <span class="flex-none text-base-content/40 scale-110 icon-[material-symbols--location-on-outline]" />
           <p class="text-sm text-base-content">
             学生宿舍一栋三楼西南侧
           </p>
         </div>
       </div>
-      <div class="h-0.5 min-w-fit my-8 bg-gray-100 lg:w-0.5 lg:h-auto lg:my-0" />
+      <div class="h-0.5 min-w-fit my-8 bg-base-200 lg:w-0.5 lg:h-auto lg:my-0" />
       <div class="max-w-lg space-y-2 mx-4">
         <div class="flex items-center gap-x-2 w-full">
-          <Input v-model="formData.name" label="姓名" alt-label="你的真实姓名" />
-          <Input v-model="formData.uid" label="学号" alt-label="你的11位学号" />
+          <AppInput v-model="formData.name" label="姓名" alt-label="你的真实姓名" />
+          <AppInput v-model="formData.uid" label="学号" alt-label="你的11位学号" />
         </div>
-        <Input v-model="formData.phone" label="电话" alt-label="用于特殊情况通知" />
+        <AppInput v-model="formData.phone" label="电话" alt-label="用于特殊情况通知" />
         <div class="flex items-center gap-x-2 w-full">
-          <Input v-model="formData.class" label="班级" alt-label="例: 22计算机教育B班" />
+          <AppInput v-model="formData.class" label="班级" alt-label="例: 22计算机教育B班" />
         </div>
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text text-xs"> 预约日期 </span>
+        <label class="w-full">
+          <div>
+            <span class="text-sm text-base-content/80"> 预约日期 </span>
           </div>
           <DatePicker v-model="formData.appTime" class="w-full" />
         </label>
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text text-xs"> 详细问题 </span>
+        <label class="w-full">
+          <div>
+            <span class="text-sm text-base-content/80"> 详细问题 </span>
           </div>
-          <textarea v-model="formData.problem" class="textarea h-25 p-1" />
-          <div class="label">
-            <span class="label-text-alt"> 尽可能详细地说明问题以及前因后果,最好备注上电脑型号 </span>
+          <textarea
+            v-model="formData.problem"
+            class="h-25 w-full rounded-md border border-base-content/15 bg-base-100 px-3 py-2 text-sm text-base-content outline-none transition-colors focus:border-primary"
+          />
+          <div>
+            <span class="text-xs text-base-content/50"> 尽可能详细地说明问题以及前因后果,最好备注上电脑型号 </span>
           </div>
         </label>
         <div class="flex items-end justify-between">
           <div class="flex flex-col space-y-4">
             <label class="flex cursor-pointer items-center">
-              <input
-                v-model="hasChecked.userAgreement"
-                type="checkbox"
-                class="checkbox checkbox-primary checkbox-sm mr-2"
-              >
+              <AppCheckbox v-model="hasChecked.userAgreement" class="mr-2">
+                <span class="icon-[mdi--check]" />
+              </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm lg:hidden flex">我已阅读并同意上侧条款</div>
               <div class="my-auto font-medium text-base-content text-sm hidden lg:flex">我已阅读并同意左侧条款</div>
             </label>
             <label v-show="hasChecked.userAgreement" class="flex cursor-pointer items-center">
-              <input
-                v-model="hasChecked.triedMyself"
-                type="checkbox"
-                class="checkbox checkbox-primary checkbox-sm mr-2"
-              >
+              <AppCheckbox v-model="hasChecked.triedMyself" class="mr-2">
+                <span class="icon-[mdi--check]" />
+              </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm">我已尝试搜索问题并自己解决</div>
             </label>
             <label v-show="hasChecked.triedMyself" class="flex cursor-pointer items-center">
-              <input
-                v-model="hasChecked.describedInDetail"
-                type="checkbox"
-                class="checkbox checkbox-primary checkbox-sm mr-2"
-              >
+              <AppCheckbox v-model="hasChecked.describedInDetail" class="mr-2">
+                <span class="icon-[mdi--check]" />
+              </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm">我已尽可能详细地描述问题</div>
             </label>
             <label v-show="hasChecked.describedInDetail" class="flex cursor-pointer items-center">
-              <input
-                v-model="hasChecked.comeEarly"
-                type="checkbox"
-                class="checkbox checkbox-primary checkbox-sm mr-2"
-              >
+              <AppCheckbox v-model="hasChecked.comeEarly" class="mr-2">
+                <span class="icon-[mdi--check]" />
+              </AppCheckbox>
               <div class="my-auto font-medium text-base-content text-sm">我会尽量早来不让工作人员加班</div>
             </label>
           </div>
-          <button v-show="!hasChecked.comeEarly" class="btn text-sm btn-disabled">
+          <AppButton v-show="!hasChecked.comeEarly" disabled>
             提交预约
-          </button>
-          <button v-show="hasChecked.comeEarly" class="btn text-sm btn-primary" :disabled="loading" @click="submit()">
+          </AppButton>
+          <AppButton v-show="hasChecked.comeEarly" color="primary" :disabled="loading" @click="submit()">
             {{ loading ? '提交中...' : '提交预约' }}
-          </button>
+          </AppButton>
         </div>
         <div>
-          <div v-if="alertInfo.info" class="alert alert-success mt-4" role="alert">
+          <div v-if="alertInfo.info" class="mt-4 rounded-md bg-success/15 px-3 py-2 text-sm text-success" role="alert">
             {{ alertInfo.info }}
           </div>
-          <div v-if="alertInfo.error" class="alert alert-error mt-4" role="alert">
+          <div v-if="alertInfo.error" class="mt-4 rounded-md bg-error/15 px-3 py-2 text-sm text-error" role="alert">
             {{ alertInfo.error }}
           </div>
         </div>
