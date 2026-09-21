@@ -1,9 +1,5 @@
 <script setup>
-const issueNum = ref(0)
-const dateNum = ref(0)
-
-issueNum.value = await $fetch('/api/issue_num')
-dateNum.value = await $fetch('/api/date_num')
+const { count: issueNum, days: dateNum } = await $fetch('/api/issues/stats')
 </script>
 
 <template>

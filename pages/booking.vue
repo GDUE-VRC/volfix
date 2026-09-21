@@ -54,10 +54,11 @@ async function submit() {
 
   loading.value = true
   try {
-    alertInfo.value.info = await $fetch('/api/new_issue', {
-      method: 'PUT',
+    await $fetch('/api/issues', {
+      method: 'POST',
       body: formData.value,
     })
+    alertInfo.value.info = '预约成功!!!'
     formData.value = { ...initFormData }
   }
   catch (error) {

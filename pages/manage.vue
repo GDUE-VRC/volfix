@@ -13,7 +13,7 @@ function formatIssue(issue) {
 async function getIssueList() {
   errorMessage.value = ''
   try {
-    const issues = await $fetch('/api/issue_list', { query: { passwd: passwd.value } })
+    const issues = await $fetch('/api/issues', { query: { passwd: passwd.value } })
     issueList.value = issues.map(formatIssue)
   }
   catch (error) {
@@ -33,12 +33,19 @@ async function runAction(action) {
   }
 }
 
-function toggleIssue(issueId) {
-  return runAction(() => $fetch('/api/toggle_issue', { query: { passwd: passwd.value, id: issueId } }))
+function toggleIssue(issue) {
+  return runAction(() => $fetch(`/api/issues/${issue.id}`, {
+    method: 'PATCH',
+    query: { passwd: passwd.value },
+    body: { closed: !issue.closed },
+  }))
 }
 
 function deleteIssue(issueId) {
-  return runAction(() => $fetch('/api/delet_issue', { query: { passwd: passwd.value, id: issueId } }))
+  return runAction(() => $fetch(`/api/issues/${issueId}`, {
+    method: 'DELETE',
+    query: { passwd: passwd.value },
+  }))
 }
 </script>
 
@@ -79,7 +86,7 @@ function deleteIssue(issueId) {
             v-for="issue in issueList"
             :key="issue.id"
             :issue="issue"
-            @toggle-issue="toggleIssue(issue.id)"
+            @toggle-issue="toggleIssue(issue)"
             @delete-issue="deleteIssue(issue.id)"
           />
         </tbody>
