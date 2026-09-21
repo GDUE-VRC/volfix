@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import process from 'node:process'
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   ssr: false,
@@ -8,8 +11,20 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxthub/core'],
-  plugins: ['~/plugins/flyonui.client.ts'],
+  modules: ['@nuxthub/core', 'reka-ui/nuxt', '@nuxt/icon', 'nuxt-auth-utils'],
+  css: ['~/assets/main.css'],
+
+  icon: {
+    mode: 'css',
+    cssLayer: 'base',
+    clientBundle: {
+      scan: true,
+    },
+  },
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -17,18 +32,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     manager_passwd: process.env.MANAGER_PASSWD,
-    public: {
-      backendUrl: process.env.BACKEND_URL,
-    },
   },
 
   hub: {
-    database: true,
+    db: 'sqlite',
   },
-
-  $development: {
-    hub: {
-      remote: 'production',
-    },
-  },
-});
+})
