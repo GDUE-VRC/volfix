@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { issues } from '../../db/schema'
 
 export default defineEventHandler(async (event) => {
-  requireManagerPassword(event)
+  await requireUserSession(event)
 
   const id = Number(getRouterParam(event, 'id'))
   if (!Number.isInteger(id)) {

@@ -19,9 +19,10 @@ pnpm dev
 
 ```
 MANAGER_PASSWD=你的后台密码
+NUXT_SESSION_PASSWORD=会话 cookie 的签名密钥, 至少 32 字符
 ```
 
-未配置时 `/manage` 对任何密码都会返回 401。
+`MANAGER_PASSWD` 是登录后台时输入的密码；`NUXT_SESSION_PASSWORD` 可用 `openssl rand -base64 32` 生成。两者缺任一，`/login` 都无法正常登录。
 
 ## 数据库
 
@@ -33,7 +34,8 @@ MANAGER_PASSWD=你的后台密码
 | --- | --- |
 | `/` | 首页与维修统计 |
 | `/booking` | 提交维修预约 |
-| `/manage` | 管理后台，需 `MANAGER_PASSWD` |
+| `/login` | 后台登录 |
+| `/manage` | 管理后台，未登录会自动跳转到 `/login` |
 
 ## 命令
 

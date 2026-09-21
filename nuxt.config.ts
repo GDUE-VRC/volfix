@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxthub/core', 'reka-ui/nuxt', '@nuxt/icon'],
+  modules: ['@nuxthub/core', 'reka-ui/nuxt', '@nuxt/icon', 'nuxt-auth-utils'],
   css: ['~/assets/main.css'],
 
   icon: {
