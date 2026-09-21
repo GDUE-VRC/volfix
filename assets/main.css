@@ -1,28 +1,35 @@
 @import 'tailwindcss';
 
-@theme {
-  --color-base-100: oklch(99.43% 0.001 286.38);
-  --color-base-200: oklch(97.33% 0.008 271.33);
-  --color-base-content: oklch(42.06% 0.049 276.53);
-  --color-primary: oklch(62.31% 0.188 259.81);
-  --color-success: oklch(76.81% 0.204 130.85);
-  --color-warning: oklch(79.52% 0.162 86.05);
-  --color-error: oklch(64.5% 0.215 16.44);
+@theme inline {
+  --color-base-100: var(--base-100);
+  --color-base-200: var(--base-200);
+  --color-base-content: var(--base-content);
+  --color-primary: var(--primary);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   color-scheme: light;
+  --base-100: oklch(99.43% 0.001 286.38);
+  --base-200: oklch(97.33% 0.008 271.33);
+  --base-content: oklch(42.06% 0.049 276.53);
+  --primary: oklch(62.31% 0.188 259.81);
+  --success: oklch(76.81% 0.204 130.85);
+  --warning: oklch(79.52% 0.162 86.05);
+  --error: oklch(64.5% 0.215 16.44);
 }
 
 .dark {
   color-scheme: dark;
-  --color-base-100: oklch(22% 0.02 277);
-  --color-base-200: oklch(28% 0.02 277);
-  --color-base-content: oklch(88% 0.015 280);
-  --color-primary: oklch(68% 0.16 259.81);
-  --color-success: oklch(72% 0.17 130.85);
-  --color-warning: oklch(78% 0.15 86.05);
-  --color-error: oklch(68% 0.19 16.44);
+  --base-100: oklch(22% 0.02 277);
+  --base-200: oklch(28% 0.02 277);
+  --base-content: oklch(88% 0.015 280);
+  --primary: oklch(68% 0.16 259.81);
+  --success: oklch(72% 0.17 130.85);
+  --warning: oklch(78% 0.15 86.05);
+  --error: oklch(68% 0.19 16.44);
 }
