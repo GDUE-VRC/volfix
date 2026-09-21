@@ -3,11 +3,18 @@ const passwd = ref('')
 const errorMessage = ref('')
 const loading = ref(false)
 
+const { loggedIn, fetch: refreshSession } = useUserSession()
+
+if (loggedIn.value) {
+  await navigateTo('/manage')
+}
+
 async function login() {
   errorMessage.value = ''
   loading.value = true
   try {
     await $fetch('/api/session', { method: 'POST', body: { password: passwd.value } })
+    await refreshSession()
     await navigateTo('/manage')
   }
   catch (error) {
