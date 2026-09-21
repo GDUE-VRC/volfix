@@ -44,19 +44,19 @@ function deleteIssue(issueId) {
 
 <template>
   <div class="min-h-full flex flex-col items-center justify-center">
-    <div v-if="errorMessage" class="alert alert-error m-4" role="alert">
+    <div v-if="errorMessage" class="m-4 rounded-md bg-error/15 px-3 py-2 text-sm text-error" role="alert">
       {{ errorMessage }}
     </div>
     <div v-show="!issueList.length" class="flex justify-center items-center">
-      <div class="join max-w-sm">
-        <input v-model="passwd" type="password" class="input join-item" placeholder="PassWord">
-        <button class="btn btn-outline btn-secondary join-item" @click="getIssueList()">
+      <div class="flex max-w-sm items-center gap-2">
+        <AppInput v-model="passwd" type="password" placeholder="PassWord" />
+        <AppButton @click="getIssueList()">
           LOGIN
-        </button>
+        </AppButton>
       </div>
     </div>
     <div v-show="issueList.length" class="flex justify-center items-center">
-      <table class="table table-sm sm:table">
+      <table class="w-full border-collapse text-base-content [&_td]:p-2 [&_th]:p-2 [&_th]:text-left [&_th]:font-medium [&_th]:text-base-content/70 [&_tr]:border-b [&_tr]:border-base-content/15">
         <thead>
           <tr>
             <th>姓名</th>

@@ -1,10 +1,12 @@
 @import 'tailwindcss';
-
-@plugin 'flyonui' {
-  themes: corporate;
-}
-
 @plugin '@iconify/tailwind4';
 
-@import '../node_modules/flyonui/variants.css';
-@source '../node_modules/flyonui/dist/index.js';
+@theme {
+  --color-base-100: oklch(99.43% 0.001 286.38);
+  --color-base-200: oklch(97.33% 0.008 271.33);
+  --color-base-content: oklch(42.06% 0.049 276.53);
+  --color-primary: oklch(62.31% 0.188 259.81);
+  --color-success: oklch(76.81% 0.204 130.85);
+  --color-warning: oklch(79.52% 0.162 86.05);
+  --color-error: oklch(64.5% 0.215 16.44);
+}

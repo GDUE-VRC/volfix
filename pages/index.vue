@@ -38,7 +38,7 @@ dateNum.value = await $fetch('/api/date_num')
               class="flex items-center border-x-1 border-base-content/15 bg-base-200 px-4 py-2 text-base-content transition-colors hover:bg-base-content/15"
             > 维修文档 </a>
             <button
-              class="flex items-center rounded-e-md bg-base-200 px-4 py-2 text-base-content transition-colors hover:bg-base-content/15"
+              class="flex cursor-pointer items-center rounded-e-md bg-base-200 px-4 py-2 text-base-content transition-colors hover:bg-base-content/15"
               @click="navigateTo('/manage')"
             >
               管理后台

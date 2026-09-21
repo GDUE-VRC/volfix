@@ -117,12 +117,12 @@ const hasChecked = ref({
         <div class="flex items-center gap-x-2 w-full">
           <AppInput v-model="formData.class" label="班级" alt-label="例: 22计算机教育B班" />
         </div>
-        <label class="w-full">
+        <div class="w-full">
           <div>
             <span class="text-sm text-base-content/80"> 预约日期 </span>
           </div>
           <DatePicker v-model="formData.appTime" class="w-full" />
-        </label>
+        </div>
         <label class="w-full">
           <div>
             <span class="text-sm text-base-content/80"> 详细问题 </span>
