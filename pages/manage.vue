@@ -1,6 +1,9 @@
 <script setup>
 definePageMeta({ middleware: 'auth' })
 
+const page = ref(1)
+const total = ref(0)
+const pageSize = ref(20)
 const issueList = ref([])
 const errorMessage = ref('')
 
@@ -14,8 +17,10 @@ function formatIssue(issue) {
 async function getIssueList() {
   errorMessage.value = ''
   try {
-    const issues = await $fetch('/api/issues')
-    issueList.value = issues.map(formatIssue)
+    const data = await $fetch('/api/issues', { query: { page: page.value } })
+    issueList.value = data.items.map(formatIssue)
+    total.value = data.total
+    pageSize.value = data.pageSize
   }
   catch (error) {
     issueList.value = []
@@ -45,6 +50,7 @@ function deleteIssue(issueId) {
   return runAction(() => $fetch(`/api/issues/${issueId}`, { method: 'DELETE' }))
 }
 
+watch(page, getIssueList)
 onMounted(getIssueList)
 </script>
 
@@ -83,5 +89,34 @@ onMounted(getIssueList)
         </tbody>
       </table>
     </div>
+
+    <PaginationRoot
+      v-model:page="page"
+      :total="total"
+      :items-per-page="pageSize"
+      :sibling-count="1"
+      show-edges
+      class="mt-4"
+    >
+      <PaginationList
+        v-slot="{ items }"
+        class="flex items-center gap-1 [&>*]:inline-flex [&>*]:h-8 [&>*]:min-w-8 [&>*]:cursor-pointer [&>*]:items-center [&>*]:justify-center [&>*]:rounded-md [&>*]:px-2 [&>*]:text-sm [&>*]:hover:bg-base-content/10 [&>*:disabled]:pointer-events-none [&>*:disabled]:opacity-40 [&>[data-type=ellipsis]]:cursor-default [&>[data-type=ellipsis]]:hover:bg-transparent"
+      >
+        <PaginationPrev>
+          <Icon name="lucide:chevron-left" class="size-4" />
+        </PaginationPrev>
+        <template v-for="(item, index) in items" :key="index">
+          <PaginationListItem
+            v-if="item.type === 'page'"
+            :value="item.value"
+            class="data-[selected=true]:bg-primary/15 data-[selected=true]:text-primary data-[selected=true]:hover:bg-primary/25"
+          />
+          <PaginationEllipsis v-else />
+        </template>
+        <PaginationNext>
+          <Icon name="lucide:chevron-right" class="size-4" />
+        </PaginationNext>
+      </PaginationList>
+    </PaginationRoot>
   </div>
 </template>
