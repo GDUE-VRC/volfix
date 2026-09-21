@@ -32,9 +32,6 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     manager_passwd: process.env.MANAGER_PASSWD,
-    public: {
-      backendUrl: process.env.BACKEND_URL,
-    },
   },
 
   hub: {

@@ -1,75 +1,50 @@
-# Nuxt Minimal Starter
+# 电脑义务维修中心
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+广东第二师范学院电脑义务维修中心的预约与后台管理系统。
 
-## Setup
+## 技术栈
 
-Make sure to install dependencies:
+Nuxt 4（SPA）· Tailwind CSS 4 · Reka UI · Nuxt Icon（lucide）· NuxtHub（SQLite）· Drizzle ORM
+
+## 开发
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+## 环境变量
 
-Build the application for production:
+在项目根目录创建 `.env`（已被 `.gitignore` 忽略）：
+
+```
+MANAGER_PASSWD=你的后台密码
+```
+
+未配置时 `/manage` 对任何密码都会返回 401。
+
+## 数据库
+
+开发环境用的是本地 SQLite：`.data/db/sqlite.db`。表结构在 `server/db/schema.ts`，迁移文件在 `server/db/migrations/sqlite/`，`pnpm dev` 与 `pnpm build` 时会自动应用。
+
+## 页面
+
+| 路径 | 说明 |
+| --- | --- |
+| `/` | 首页与维修统计 |
+| `/booking` | 提交维修预约 |
+| `/manage` | 管理后台，需 `MANAGER_PASSWD` |
+
+## 命令
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm lint        # ESLint
+pnpm lint:fix
+pnpm build       # 生产构建
+pnpm preview     # 预览构建产物
+pnpm clean       # 清理 .nuxt / .output / node_modules
 ```
 
-Locally preview production build:
+## 部署
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+线上需要单独配置 `MANAGER_PASSWD` 环境变量，否则后台无法登录。
