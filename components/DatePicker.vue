@@ -23,9 +23,9 @@ function selectDate(value: AcceptableValue) {
       class="flex-1 cursor-pointer bg-base-200 px-1 py-2 text-base-content transition-colors hover:bg-base-content/15 data-[state=checked]:bg-primary data-[state=checked]:text-white data-[state=checked]:hover:bg-primary"
       :aria-label="`${date.day} ${date.weekday}`"
     >
-      <span class="text-sm mb-0.5">{{ date.day }}</span>
-      <span>/</span>
-      <span class=" text-xs">{{ date.weekday }}</span>
+      <span class="text-sm">{{ date.day }}</span>
+      <span class="text-xs text-base-content/70">/</span>
+      <span class="text-xs">{{ date.weekday }}</span>
     </RadioGroupItem>
   </RadioGroupRoot>
 </template>
