@@ -80,7 +80,7 @@ async function submit() {
         </div>
       </div>
       <div class="h-0.5 min-w-fit my-8 bg-base-200 lg:w-0.5 lg:h-auto lg:my-0" />
-      <div class="max-w-lg space-y-2 mx-4">
+      <div class="max-w-lg flex flex-col gap-2 mx-4">
         <div class="flex items-center gap-x-2 w-full">
           <AppInput v-model="formData.name" label="姓名" alt-label="你的真实姓名" />
           <AppInput v-model="formData.uid" label="学号" alt-label="你的11位学号" />
