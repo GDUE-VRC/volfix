@@ -20,10 +20,12 @@ function selectDate(value: AcceptableValue) {
       v-for="date in datesList"
       :key="date.date"
       :value="date.date"
-      class="flex-1 cursor-pointer bg-base-200 px-2 py-2 text-sm text-base-content transition-colors hover:bg-base-content/15 data-[state=checked]:bg-primary data-[state=checked]:text-white data-[state=checked]:hover:bg-primary"
+      class="flex-1 cursor-pointer bg-base-200 px-1 py-2 text-base-content transition-colors hover:bg-base-content/15 data-[state=checked]:bg-primary data-[state=checked]:text-white data-[state=checked]:hover:bg-primary"
       :aria-label="`${date.day} ${date.weekday}`"
     >
-      {{ date.day }} {{ date.weekday }}
+      <span class="text-sm mb-0.5">{{ date.day }}</span>
+      <span>/</span>
+      <span class=" text-xs">{{ date.weekday }}</span>
     </RadioGroupItem>
   </RadioGroupRoot>
 </template>
