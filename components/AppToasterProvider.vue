@@ -17,7 +17,6 @@ const VARIANTS = {
 </script>
 
 <template>
-  <!-- Toast portal target, last in app.vue so toasts paint above everything. -->
   <div id="app-toasts" />
   <ToastProvider :duration="4000" swipe-direction="right">
     <ToastPortal to="#app-toasts">
@@ -27,7 +26,7 @@ const VARIANTS = {
         <ToastRoot
           v-for="toast in toasts"
           :key="toast.id"
-          class="toast flex items-start gap-3 rounded-lg border p-4 shadow-lg backdrop-blur-[8px]"
+          class="app-toast flex items-start gap-3 rounded-lg border p-4 shadow-lg backdrop-blur-[8px]"
           :class="VARIANTS[toast.variant]"
           @update:open="open => !open && dismiss(toast.id)"
         >
@@ -52,8 +51,8 @@ const VARIANTS = {
   </ToastProvider>
 </template>
 
-<style scoped>
-@keyframes toast-in {
+<style>
+@keyframes app-toast-in {
   from {
     opacity: 0;
     transform: translateX(1rem);
@@ -65,20 +64,20 @@ const VARIANTS = {
   }
 }
 
-.toast[data-state='open'] {
-  animation: toast-in 220ms ease-out;
+.app-toast[data-state='open'] {
+  animation: app-toast-in 220ms ease-out;
 }
 
-.toast[data-swipe='move'] {
+.app-toast[data-swipe='move'] {
   transform: translateX(var(--reka-toast-swipe-move-x, 0)) translateY(var(--reka-toast-swipe-move-y, 0));
 }
 
-.toast[data-swipe='cancel'] {
+.app-toast[data-swipe='cancel'] {
   transform: translateX(0) translateY(0);
   transition: transform 200ms ease-out;
 }
 
-.toast[data-swipe='end'] {
+.app-toast[data-swipe='end'] {
   transform: translateX(var(--reka-toast-swipe-end-x, 0)) translateY(var(--reka-toast-swipe-end-y, 0));
 }
 </style>
