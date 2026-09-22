@@ -1,1 +1,6 @@
-
+# 广东第二师范学院电脑义务维修中心
+User-agent: *
+Allow: /
+Disallow: /manage
+Disallow: /login
+Disallow: /api/
