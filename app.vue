@@ -12,6 +12,8 @@ useHead({
       &copy; 2025. 电脑义务维修中心. All rights reserved.
     </p>
   </div>
+  <AppDialogProvider />
+  <AppToasterProvider />
 </template>
 
 <style>

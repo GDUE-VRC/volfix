@@ -14,12 +14,9 @@ const initFormData
   }
 const formData = ref(initFormData)
 
-const alertInfo = ref({
-  info: '',
-  error: '',
-})
-
 const loading = ref(false)
+
+const toast = useToast()
 
 const requiredFields = [
   ['name', '请填写姓名'],
@@ -44,11 +41,9 @@ function validate(payload) {
 }
 
 async function submit() {
-  alertInfo.value = { info: '', error: '' }
-
   const message = validate(formData.value)
   if (message) {
-    alertInfo.value.error = message
+    toast.error(message)
     return
   }
 
@@ -58,11 +53,11 @@ async function submit() {
       method: 'POST',
       body: formData.value,
     })
-    alertInfo.value.info = '预约成功!!!'
+    toast.success('预约成功!!!')
     formData.value = { ...initFormData }
   }
   catch (error) {
-    alertInfo.value.error = error.data?.message ?? '提交失败, 请稍后重试'
+    toast.error(error.data?.message ?? '提交失败, 请稍后重试')
   }
   finally {
     loading.value = false
@@ -170,14 +165,6 @@ const hasChecked = ref({
           <AppButton v-show="hasChecked.comeEarly" color="primary" :disabled="loading" @click="submit()">
             {{ loading ? '提交中...' : '提交预约' }}
           </AppButton>
-        </div>
-        <div>
-          <div v-if="alertInfo.info" class="mt-4 rounded-md bg-success/15 px-3 py-2 text-sm text-success" role="alert">
-            {{ alertInfo.info }}
-          </div>
-          <div v-if="alertInfo.error" class="mt-4 rounded-md bg-error/15 px-3 py-2 text-sm text-error" role="alert">
-            {{ alertInfo.error }}
-          </div>
         </div>
       </div>
     </div>
