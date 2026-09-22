@@ -13,4 +13,5 @@ useHead({
     </p>
   </div>
   <AppToasterProvider />
+  <AppScrollDown />
 </template>
