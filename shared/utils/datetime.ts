@@ -1,3 +1,4 @@
+import { isWorkday } from 'chinese-days'
 import { Temporal } from 'temporal-polyfill'
 
 const TZ = 'Asia/Shanghai'
@@ -56,8 +57,9 @@ export function upcomingWorkingDays(count: number): WorkingDay[] {
   let cursor = Temporal.Now.zonedDateTimeISO(TZ)
   const days: WorkingDay[] = []
   while (days.length < count) {
-    if (cursor.dayOfWeek <= 5) {
-      days.push({ date: cursor.toString().slice(0, 10), day: cursor.day, weekday: WEEKDAYS[cursor.dayOfWeek % 7] ?? '' })
+    const date = cursor.toString().slice(0, 10)
+    if (isWorkday(date)) {
+      days.push({ date, day: cursor.day, weekday: WEEKDAYS[cursor.dayOfWeek % 7] ?? '' })
     }
     cursor = cursor.add({ days: 1 })
   }

@@ -29,6 +29,9 @@ importers:
       capjs-core:
         specifier: ^0.1.2
         version: 0.1.2
+      chinese-days:
+        specifier: ^1.5.9
+        version: 1.5.9
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@cloudflare/workers-types@4.20260702.1)(@electric-sql/pglite@0.5.8)(@libsql/client@0.18.0)(@neondatabase/serverless@1.1.0)
@@ -2473,6 +2476,9 @@ packages:
 
   charenc@0.0.2:
     resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
+
+  chinese-days@1.5.9:
+    resolution: {integrity: sha512-YwWUPcrtzlH5JIkSFCXerKb7Pox85G4LSVLZcrRMAzRuF8FmfmCC/6xGYmDyHtosvaYH/DyI5W8mnYGl01fu0g==}
 
   chokidar@5.0.0:
     resolution: {integrity: sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==}
@@ -8311,6 +8317,8 @@ snapshots:
 
   charenc@0.0.2:
     optional: true
+
+  chinese-days@1.5.9: {}
 
   chokidar@5.0.0:
     dependencies:
