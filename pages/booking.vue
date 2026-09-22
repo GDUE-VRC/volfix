@@ -34,7 +34,7 @@ async function submit() {
   try {
     await $fetch('/api/issues', {
       method: 'POST',
-      body: formData.value,
+      body: { ...formData.value, capToken: await solveCap() },
     })
     toast.success('预约成功!!!')
     formData.value = { ...initFormData }

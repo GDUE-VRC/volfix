@@ -1,5 +1,10 @@
 export default defineEventHandler(async (event) => {
-  const { password } = await readBody<{ password?: string }>(event)
+  const { password, capToken } = await readBody<{ password?: string, capToken?: string }>(event)
+
+  if (!await consumeProof(capToken)) {
+    throw createError({ statusCode: 403, message: '人机校验失败, 请刷新页面重试' })
+  }
+
   const { manager_passwd: expected } = useRuntimeConfig()
 
   if (!expected || password !== expected) {

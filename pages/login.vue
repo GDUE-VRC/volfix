@@ -13,7 +13,10 @@ if (loggedIn.value) {
 async function login() {
   loading.value = true
   try {
-    await $fetch('/api/session', { method: 'POST', body: { password: passwd.value } })
+    await $fetch('/api/session', {
+      method: 'POST',
+      body: { password: passwd.value, capToken: await solveCap() },
+    })
     await refreshSession()
     await navigateTo('/manage')
   }

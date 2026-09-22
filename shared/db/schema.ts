@@ -1,4 +1,4 @@
-import { boolean, date, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { boolean, date, jsonb, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { createInsertSchema } from 'drizzle-zod'
 import { z } from 'zod'
 
@@ -31,3 +31,10 @@ export const issueInsertSchema = createInsertSchema(issues, {
   problem: schema => schema.min(1, '请填写详情'),
   appTime: () => z.iso.date('请选择预约日期'),
 }).omit({ id: true, regTime: true, closed: true, closedTime: true })
+
+export const capChallenges = pgTable('cap_challenges', {
+  sig: text().primaryKey(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  answer: jsonb().$type<number[]>(),
+  usedAt: timestamp('used_at', { withTimezone: true }),
+})

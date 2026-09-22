@@ -38,6 +38,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     manager_passwd: process.env.MANAGER_PASSWD,
+    cap_secret: process.env.CAP_SECRET || process.env.NUXT_SESSION_PASSWORD,
   },
 
   hub: {
