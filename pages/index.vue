@@ -1,5 +1,8 @@
 <script setup>
-const { count: issueNum, days: dateNum } = await $fetch('/api/issues/stats')
+const { data: stats } = await useFetch('/api/issues/stats')
+
+const issueNum = computed(() => stats.value?.count ?? 0)
+const dateNum = computed(() => stats.value?.days ?? 0)
 </script>
 
 <template>

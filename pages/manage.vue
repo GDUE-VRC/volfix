@@ -2,40 +2,34 @@
 definePageMeta({ middleware: 'auth' })
 
 const page = ref(1)
-const total = ref(0)
-const pageSize = ref(20)
-const issueList = ref([])
-const errorMessage = ref('')
+const actionError = ref('')
 
 function formatIssue(issue) {
-  issue.appTime = new Date(Number(issue.appTime) + 8 * 60 * 60000).toISOString()
-  issue.regTime = new Date(Number(issue.regTime) + 8 * 60 * 60000).toISOString().replace('T', ' ')
-  issue.closedTime = new Date(Number(issue.closedTime) + 8 * 60 * 60000).toISOString().replace('T', ' ')
-  return issue
+  return {
+    ...issue,
+    appTime: new Date(Number(issue.appTime) + 8 * 60 * 60000).toISOString(),
+    regTime: new Date(Number(issue.regTime) + 8 * 60 * 60000).toISOString().replace('T', ' '),
+    closedTime: new Date(Number(issue.closedTime) + 8 * 60 * 60000).toISOString().replace('T', ' '),
+  }
 }
 
-async function getIssueList() {
-  errorMessage.value = ''
-  try {
-    const data = await $fetch('/api/issues', { query: { page: page.value } })
-    issueList.value = data.items.map(formatIssue)
-    total.value = data.total
-    pageSize.value = data.pageSize
-  }
-  catch (error) {
-    issueList.value = []
-    errorMessage.value = error.data?.message ?? '获取列表失败, 请稍后重试'
-  }
-}
+const { data, error, refresh } = await useFetch('/api/issues', {
+  query: { page },
+})
+
+const issueList = computed(() => (data.value?.items ?? []).map(formatIssue))
+const total = computed(() => data.value?.total ?? 0)
+const pageSize = computed(() => data.value?.pageSize ?? 20)
+const errorMessage = computed(() => actionError.value || error.value?.data?.message || '')
 
 async function runAction(action) {
-  errorMessage.value = ''
+  actionError.value = ''
   try {
     await action()
-    await getIssueList()
+    await refresh()
   }
-  catch (error) {
-    errorMessage.value = error.data?.message ?? '操作失败, 请稍后重试'
+  catch (err) {
+    actionError.value = err.data?.message ?? '操作失败, 请稍后重试'
   }
 }
 
@@ -49,9 +43,6 @@ function toggleIssue(issue) {
 function deleteIssue(issueId) {
   return runAction(() => $fetch(`/api/issues/${issueId}`, { method: 'DELETE' }))
 }
-
-watch(page, getIssueList)
-onMounted(getIssueList)
 </script>
 
 <template>
