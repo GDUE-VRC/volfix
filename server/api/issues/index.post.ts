@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
   if (!await consumeProof(body.capToken)) {
-    throw createError({ statusCode: 403, message: '人机校验失败, 请刷新页面重试' })
+    throw createError({ statusCode: 403, message: '人机校验失败' })
   }
 
   const result = issueInsertSchema.safeParse(body)
