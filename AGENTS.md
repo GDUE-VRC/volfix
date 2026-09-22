@@ -37,7 +37,7 @@
 ## 表单校验与时区
 
 - 校验规则前后端共用：`shared/db/schema.ts` 里的 `issueInsertSchema`（drizzle-zod）同时被 `pages/booking.vue` 和 `server/api/issues/index.post.ts` 使用，改一处即可。
-- 时间字段用 Postgres 原生类型：`reg_time` / `closed_time` 是 `timestamptz`，`app_time` 是 `date`（预约日期，`YYYY-MM-DD`）。格式化统一走 `shared/utils/datetime.ts`（`Intl` + `Asia/Shanghai`），**不要**用本地 `Date` 方法。
+- 时间字段用 Postgres 原生类型：`reg_time` / `closed_time` 是 `timestamptz`，`app_time` 是 `date`（预约日期，`YYYY-MM-DD`）。时间计算统一走 `shared/utils/datetime.ts`，用 `temporal-polyfill` 的 `Temporal`（时区 `Asia/Shanghai`），**不要**用本地 `Date` 方法。
 - API 经 JSON 后 `Date` 会变成 ISO 字符串；`shared/db/schema.ts` 的 `Issue` 类型就是这套序列化后的形状（`regTime`/`closedTime` 为 ISO 字符串，`appTime` 为 `YYYY-MM-DD`）。
 
 ## UI 约定

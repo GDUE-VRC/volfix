@@ -1,7 +1,10 @@
-export type TimeValue = string | number | Date | null | undefined
+import { Temporal } from 'temporal-polyfill'
 
-const BEIJING_TZ = 'Asia/Shanghai'
+const TZ = 'Asia/Shanghai'
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/
 const WEEKDAYS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+
+export type TimeValue = string | null | undefined
 
 export interface WorkingDay {
   date: string
@@ -9,109 +12,54 @@ export interface WorkingDay {
   weekday: string
 }
 
-interface BeijingParts {
-  year: number
-  month: number
-  day: number
-  hour: number
-  minute: number
-  second: number
-}
-
-const partsFormatter = new Intl.DateTimeFormat('en-CA', {
-  timeZone: BEIJING_TZ,
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hourCycle: 'h23',
-})
-
-function toBeijingParts(value: TimeValue): BeijingParts | null {
-  if (value === null || value === undefined || value === '') {
+function zoned(value: TimeValue): Temporal.ZonedDateTime | null {
+  if (!value) {
     return null
   }
-  const date = value instanceof Date ? value : new Date(value)
-  if (Number.isNaN(date.getTime())) {
+  try {
+    return DATE_ONLY.test(value)
+      ? Temporal.PlainDate.from(value).toZonedDateTime(TZ)
+      : Temporal.Instant.from(value).toZonedDateTimeISO(TZ)
+  }
+  catch {
     return null
   }
-  const parts = Object.fromEntries(partsFormatter.formatToParts(date).map(({ type, value: part }) => [type, part]))
-  return {
-    year: Number(parts.year),
-    month: Number(parts.month),
-    day: Number(parts.day),
-    hour: Number(parts.hour),
-    minute: Number(parts.minute),
-    second: Number(parts.second),
-  }
-}
-
-function weekdayIndex(parts: BeijingParts): number {
-  return new Date(Date.UTC(parts.year, parts.month - 1, parts.day)).getUTCDay()
-}
-
-function pad(value: number): string {
-  return String(value).padStart(2, '0')
 }
 
 export function formatDate(value: TimeValue): string {
-  const parts = toBeijingParts(value)
-  return parts ? `${parts.year}-${pad(parts.month)}-${pad(parts.day)}` : ''
+  return zoned(value)?.toString().slice(0, 10) ?? ''
 }
 
 export function formatMonthDay(value: TimeValue): string {
-  const parts = toBeijingParts(value)
-  return parts ? `${pad(parts.month)}-${pad(parts.day)}` : ''
+  return formatDate(value).slice(5)
 }
 
 export function formatDateTime(value: TimeValue): string {
-  const parts = toBeijingParts(value)
-  return parts
-    ? `${parts.year}-${pad(parts.month)}-${pad(parts.day)} ${pad(parts.hour)}:${pad(parts.minute)}:${pad(parts.second)}`
-    : ''
+  return zoned(value)?.toPlainDateTime().toString().replace('T', ' ').slice(0, 19) ?? ''
 }
 
 export function formatWeekday(value: TimeValue): string {
-  const parts = toBeijingParts(value)
-  return parts ? (WEEKDAYS[weekdayIndex(parts)] ?? '') : ''
+  const date = zoned(value)
+  return date ? (WEEKDAYS[date.dayOfWeek % 7] ?? '') : ''
 }
 
 export function beijingWeekdayIndex(value: TimeValue): number {
-  const parts = toBeijingParts(value)
-  return parts ? ((weekdayIndex(parts) + 6) % 7) + 1 : 0
+  return zoned(value)?.dayOfWeek ?? 0
 }
 
 export function beijingWeekKey(value: TimeValue): string {
-  const parts = toBeijingParts(value)
-  if (!parts) {
-    return ''
-  }
-  const day = new Date(Date.UTC(parts.year, parts.month - 1, parts.day))
-  const weekday = day.getUTCDay()
-  day.setUTCDate(day.getUTCDate() - (weekday === 0 ? 6 : weekday - 1))
-  return day.toISOString().slice(0, 10)
+  const date = zoned(value)
+  return date ? date.subtract({ days: date.dayOfWeek - 1 }).toString().slice(0, 10) : ''
 }
 
 export function upcomingWorkingDays(count: number): WorkingDay[] {
-  const today = toBeijingParts(new Date())
-  if (!today) {
-    return []
-  }
-  const cursor = new Date(Date.UTC(today.year, today.month - 1, today.day))
-
+  let cursor = Temporal.Now.zonedDateTimeISO(TZ)
   const days: WorkingDay[] = []
   while (days.length < count) {
-    const weekday = cursor.getUTCDay()
-    if (weekday !== 0 && weekday !== 6) {
-      days.push({
-        date: cursor.toISOString().slice(0, 10),
-        day: cursor.getUTCDate(),
-        weekday: WEEKDAYS[weekday] ?? '',
-      })
+    if (cursor.dayOfWeek <= 5) {
+      days.push({ date: cursor.toString().slice(0, 10), day: cursor.day, weekday: WEEKDAYS[cursor.dayOfWeek % 7] ?? '' })
     }
-    cursor.setUTCDate(cursor.getUTCDate() + 1)
+    cursor = cursor.add({ days: 1 })
   }
   return days
 }
