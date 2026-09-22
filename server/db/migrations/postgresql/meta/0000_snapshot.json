@@ -1,5 +1,5 @@
 {
-  "id": "ee5887f7-81ec-4dae-99d6-87dcfc29f667",
+  "id": "b0c2898a-64f4-441d-98fb-8731bad25c6a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -102,6 +102,12 @@
         },
         "closed_time": {
           "name": "closed_time",
+          "type": "timestamp (0) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deleted_at": {
+          "name": "deleted_at",
           "type": "timestamp (0) with time zone",
           "primaryKey": false,
           "notNull": false

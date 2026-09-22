@@ -13,14 +13,16 @@ export const issues = pgTable('issues', {
   appTime: date('app_time').notNull(),
   closed: boolean().notNull().default(false),
   closedTime: timestamp('closed_time', { withTimezone: true, precision: 0 }),
+  deletedAt: timestamp('deleted_at', { withTimezone: true, precision: 0 }),
 })
 
 type IssueRow = typeof issues.$inferSelect
 
-export type Issue = Omit<IssueRow, 'regTime' | 'appTime' | 'closedTime'> & {
+export type Issue = Omit<IssueRow, 'regTime' | 'appTime' | 'closedTime' | 'deletedAt'> & {
   regTime: string
   appTime: string
   closedTime: string | null
+  deletedAt: string | null
 }
 
 export const issueInsertSchema = createInsertSchema(issues, {

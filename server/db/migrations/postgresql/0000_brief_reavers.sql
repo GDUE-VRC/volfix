@@ -15,5 +15,6 @@ CREATE TABLE "issues" (
 	"reg_time" timestamp (0) with time zone NOT NULL,
 	"app_time" date NOT NULL,
 	"closed" boolean DEFAULT false NOT NULL,
-	"closed_time" timestamp (0) with time zone
+	"closed_time" timestamp (0) with time zone,
+	"deleted_at" timestamp (0) with time zone
 );

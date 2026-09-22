@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { and, eq, isNull } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const [updated] = await db
     .update(schema.issues)
     .set({ closed, closedTime: closed ? new Date() : null })
-    .where(eq(schema.issues.id, id))
+    .where(and(eq(schema.issues.id, id), isNull(schema.issues.deletedAt)))
     .returning()
 
   if (!updated) {

@@ -1,8 +1,8 @@
-import { count } from 'drizzle-orm'
+import { count, isNull } from 'drizzle-orm'
 
 export default defineEventHandler(async () => {
-  const [row] = await db.select({ value: count() }).from(schema.issues)
-  const rows = await db.select({ appTime: schema.issues.appTime }).from(schema.issues)
+  const [row] = await db.select({ value: count() }).from(schema.issues).where(isNull(schema.issues.deletedAt))
+  const rows = await db.select({ appTime: schema.issues.appTime }).from(schema.issues).where(isNull(schema.issues.deletedAt))
 
   const weeks = new Set(rows.map(({ appTime }) => beijingWeekKey(appTime)).filter(Boolean))
   const latest = rows.reduce((max, { appTime }) => (appTime > max ? appTime : max), '')

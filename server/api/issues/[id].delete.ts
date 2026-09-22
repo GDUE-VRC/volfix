@@ -1,13 +1,17 @@
-import { eq } from 'drizzle-orm'
+import { and, eq, isNull } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)
 
   const id = getIssueId(event)
 
-  const deleted = await db.delete(schema.issues).where(eq(schema.issues.id, id)).returning({ id: schema.issues.id })
+  const [deleted] = await db
+    .update(schema.issues)
+    .set({ deletedAt: new Date() })
+    .where(and(eq(schema.issues.id, id), isNull(schema.issues.deletedAt)))
+    .returning({ id: schema.issues.id })
 
-  if (!deleted.length) {
+  if (!deleted) {
     throw createError({ statusCode: 404, message: '记录不存在' })
   }
 
