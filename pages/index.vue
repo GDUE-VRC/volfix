@@ -1,5 +1,5 @@
-<script setup>
-const { data: stats } = await useFetch('/api/issues/stats')
+<script setup lang="ts">
+const { data: stats } = await useFetch<{ count: number, days: number }>('/api/issues/stats')
 
 const issueNum = computed(() => stats.value?.count ?? 0)
 const dateNum = computed(() => stats.value?.days ?? 0)

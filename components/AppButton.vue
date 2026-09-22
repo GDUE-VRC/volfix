@@ -1,20 +1,18 @@
-<script setup>
-const props = defineProps({
-  variant: {
-    type: String,
-    default: 'solid',
-    validator: value => ['solid', 'soft', 'ghost'].includes(value),
-  },
-  color: {
-    type: String,
-    default: 'neutral',
-    validator: value => ['neutral', 'primary', 'success', 'warning', 'error'].includes(value),
-  },
+<script setup lang="ts">
+type ButtonVariant = 'solid' | 'soft' | 'ghost'
+type ButtonColor = 'neutral' | 'primary' | 'success' | 'warning' | 'error'
+
+const props = withDefaults(defineProps<{
+  variant?: ButtonVariant
+  color?: ButtonColor
+}>(), {
+  variant: 'solid',
+  color: 'neutral',
 })
 
 const BASE = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50'
 
-const VARIANTS = {
+const VARIANTS: Record<ButtonVariant, Record<ButtonColor, string>> = {
   solid: {
     neutral: 'bg-base-200 text-base-content hover:bg-base-content/15',
     primary: 'bg-primary text-white hover:bg-primary/90',
@@ -38,9 +36,7 @@ const VARIANTS = {
   },
 }
 
-const classes = computed(() =>
-  `${BASE} ${VARIANTS[props.variant]?.[props.color] ?? VARIANTS.solid.neutral}`,
-)
+const classes = computed(() => `${BASE} ${VARIANTS[props.variant][props.color]}`)
 </script>
 
 <template>

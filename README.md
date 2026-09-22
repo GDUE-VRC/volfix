@@ -4,7 +4,9 @@
 
 ## 技术栈
 
-Nuxt 4（SPA）· Tailwind CSS 4 · Reka UI · Nuxt Icon（lucide）· NuxtHub（SQLite）· Drizzle ORM
+Nuxt 4（SSR）· Tailwind CSS 4 · Reka UI · Nuxt Icon（lucide）· NuxtHub（SQLite）· Drizzle ORM
+
+项目结构约定：页面/组件在根目录，前后端共享的校验、类型与工具放在 `shared/`。
 
 ## 开发
 

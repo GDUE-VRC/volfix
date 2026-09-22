@@ -33,3 +33,14 @@
   --warning: oklch(78% 0.15 86.05);
   --error: oklch(68% 0.19 16.44);
 }
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.1s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}

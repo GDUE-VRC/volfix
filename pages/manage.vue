@@ -1,47 +1,46 @@
-<script setup>
+<script setup lang="ts">
+import type { Issue } from '~/shared/db/schema'
+import { PAGE_SIZE } from '~/shared/constants'
+
 definePageMeta({ middleware: 'auth' })
 
 const page = ref(1)
 const actionError = ref('')
 
-function formatIssue(issue) {
-  return {
-    ...issue,
-    appTime: new Date(Number(issue.appTime) + 8 * 60 * 60000).toISOString(),
-    regTime: new Date(Number(issue.regTime) + 8 * 60 * 60000).toISOString().replace('T', ' '),
-    closedTime: new Date(Number(issue.closedTime) + 8 * 60 * 60000).toISOString().replace('T', ' '),
-  }
-}
-
-const { data, error, refresh } = await useFetch('/api/issues', {
+const { data, error, refresh } = await useFetch<{
+  items: Issue[]
+  total: number
+  page: number
+  pageSize: number
+}>('/api/issues', {
   query: { page },
 })
 
-const issueList = computed(() => (data.value?.items ?? []).map(formatIssue))
+const issueList = computed(() => data.value?.items ?? [])
 const total = computed(() => data.value?.total ?? 0)
-const pageSize = computed(() => data.value?.pageSize ?? 20)
-const errorMessage = computed(() => actionError.value || error.value?.data?.message || '')
+const pageSize = computed(() => data.value?.pageSize ?? PAGE_SIZE)
+const errorMessage = computed(() => actionError.value || (error.value ? errorText(error.value, '获取列表失败, 请稍后重试') : ''))
 
-async function runAction(action) {
+async function mutate(url: string, options?: Parameters<typeof $fetch>[1]) {
   actionError.value = ''
   try {
-    await action()
+    await $fetch(url, options)
     await refresh()
   }
   catch (err) {
-    actionError.value = err.data?.message ?? '操作失败, 请稍后重试'
+    actionError.value = errorText(err, '操作失败, 请稍后重试')
   }
 }
 
-function toggleIssue(issue) {
-  return runAction(() => $fetch(`/api/issues/${issue.id}`, {
+function toggleIssue(issue: Issue) {
+  return mutate(`/api/issues/${issue.id}`, {
     method: 'PATCH',
     body: { closed: !issue.closed },
-  }))
+  })
 }
 
-function deleteIssue(issueId) {
-  return runAction(() => $fetch(`/api/issues/${issueId}`, { method: 'DELETE' }))
+function deleteIssue(issueId: number) {
+  return mutate(`/api/issues/${issueId}`, { method: 'DELETE' })
 }
 </script>
 

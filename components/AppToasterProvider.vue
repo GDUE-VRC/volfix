@@ -1,14 +1,16 @@
-<script setup>
+<script setup lang="ts">
+import type { ToastVariant } from '~/composables/useToast'
+
 const { toasts, dismiss } = useToast()
 
-const ICONS = {
+const ICONS: Record<ToastVariant, string> = {
   info: 'lucide:info',
   success: 'lucide:circle-check',
   warning: 'lucide:triangle-alert',
   error: 'lucide:circle-x',
 }
 
-const VARIANTS = {
+const VARIANTS: Record<ToastVariant, string> = {
   info: 'border-base-content/20 bg-base-100/80 text-base-content',
   success: 'border-success/40 bg-success/15 text-success',
   warning: 'border-warning/40 bg-warning/15 text-warning',
@@ -17,9 +19,8 @@ const VARIANTS = {
 </script>
 
 <template>
-  <div id="app-toasts" />
   <ToastProvider :duration="4000" swipe-direction="right">
-    <ToastPortal to="#app-toasts">
+    <ToastPortal to="body">
       <ToastViewport
         class="fixed right-0 bottom-0 m-0 flex max-h-screen w-full list-none flex-col gap-2 p-4 outline-none sm:max-w-sm"
       >

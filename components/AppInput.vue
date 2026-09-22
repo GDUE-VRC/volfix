@@ -1,18 +1,15 @@
-<script setup>
+<script setup lang="ts">
 defineOptions({ inheritAttrs: false })
 
-defineProps({
-  label: {
-    type: String,
-    default: '',
-  },
-  altLabel: {
-    type: String,
-    default: '',
-  },
+withDefaults(defineProps<{
+  label?: string
+  altLabel?: string
+}>(), {
+  label: '',
+  altLabel: '',
 })
 
-const model = defineModel({ type: String, default: '' })
+const model = defineModel<string>({ default: '' })
 </script>
 
 <template>

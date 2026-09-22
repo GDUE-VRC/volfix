@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const passwd = ref('')
 const loading = ref(false)
 
@@ -18,7 +18,7 @@ async function login() {
     await navigateTo('/manage')
   }
   catch (error) {
-    toast.error(error.data?.message ?? '登录失败, 请稍后重试')
+    toast.error(errorText(error, '登录失败, 请稍后重试'))
   }
   finally {
     loading.value = false
