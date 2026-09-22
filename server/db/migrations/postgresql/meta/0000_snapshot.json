@@ -1,9 +1,46 @@
 {
-  "id": "573bfc9d-7315-4bd5-b0a9-6f70f08ae0fd",
+  "id": "ee5887f7-81ec-4dae-99d6-87dcfc29f667",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.cap_challenges": {
+      "name": "cap_challenges",
+      "schema": "",
+      "columns": {
+        "sig": {
+          "name": "sig",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answer": {
+          "name": "answer",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "used_at": {
+          "name": "used_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.issues": {
       "name": "issues",
       "schema": "",
@@ -46,7 +83,7 @@
         },
         "reg_time": {
           "name": "reg_time",
-          "type": "timestamp with time zone",
+          "type": "timestamp (0) with time zone",
           "primaryKey": false,
           "notNull": true
         },
@@ -65,7 +102,7 @@
         },
         "closed_time": {
           "name": "closed_time",
-          "type": "timestamp with time zone",
+          "type": "timestamp (0) with time zone",
           "primaryKey": false,
           "notNull": false
         }

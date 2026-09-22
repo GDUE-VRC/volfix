@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1790057498128,
-      "tag": "0000_mean_master_mold",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1790060703640,
-      "tag": "0001_tiny_supernaut",
+      "when": 1790062338385,
+      "tag": "0000_faithful_sabra",
       "breakpoints": true
     }
   ]

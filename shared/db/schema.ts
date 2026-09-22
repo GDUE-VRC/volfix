@@ -9,10 +9,10 @@ export const issues = pgTable('issues', {
   class: varchar({ length: 50 }).notNull(),
   phone: varchar({ length: 11 }).notNull(),
   problem: text().notNull(),
-  regTime: timestamp('reg_time', { withTimezone: true }).notNull(),
+  regTime: timestamp('reg_time', { withTimezone: true, precision: 0 }).notNull(),
   appTime: date('app_time').notNull(),
   closed: boolean().notNull().default(false),
-  closedTime: timestamp('closed_time', { withTimezone: true }),
+  closedTime: timestamp('closed_time', { withTimezone: true, precision: 0 }),
 })
 
 type IssueRow = typeof issues.$inferSelect
