@@ -1,17 +1,9 @@
-<script setup>
-defineProps({
-  issue: {
-    type: Object,
-    default: () => ({}),
-  },
-})
-defineEmits(['toggleIssue', 'deleteIssue'])
+<script setup lang="ts">
+import type { Issue } from '~/shared/db/schema'
 
-function getWeekday(dateString) {
-  const date = new Date(dateString)
-  const weekday = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
-  return weekday[date.getDay()]
-}
+defineProps<{ issue: Issue }>()
+
+defineEmits<{ toggleIssue: [], deleteIssue: [] }>()
 </script>
 
 <template>
@@ -28,15 +20,15 @@ function getWeekday(dateString) {
     </td>
     <td>
       <div class="inline">
-        {{ issue.appTime.slice(5, 10) }}
+        {{ formatMonthDay(issue.appTime) }}
       </div>
       <div class="text-xs inline">
-        {{ `/${getWeekday(issue.appTime)}` }}
+        {{ `/${formatWeekday(issue.appTime)}` }}
       </div>
     </td>
     <td>
       <span v-if="issue.closed" class="rounded-full bg-success/20 px-2 py-0.5 text-xs text-success">已维修</span>
-      <span v-if="!issue.closed" class="rounded-full bg-warning/20 px-2 py-0.5 text-xs text-warning">未维修</span>
+      <span v-else class="rounded-full bg-warning/20 px-2 py-0.5 text-xs text-warning">未维修</span>
     </td>
     <td>
       <AppDialog title="详细信息">
@@ -65,15 +57,15 @@ function getWeekday(dateString) {
           <p><strong>电话:</strong> {{ issue.phone }}</p>
           <p>
             <strong>预约时间:</strong>
-            {{ issue.appTime.slice(0, 10) }}
+            {{ formatDate(issue.appTime) }}
           </p>
           <p>
             <strong>提交时间:</strong>
-            {{ issue.regTime.slice(0, 19) }}
+            {{ formatDateTime(issue.regTime) }}
           </p>
           <p v-if="issue.closed">
             <strong>完成时间:</strong>
-            {{ issue.closedTime.slice(0, 19) }}
+            {{ formatDateTime(issue.closedTime) }}
           </p>
           <div>
             <strong>问题详情:</strong>

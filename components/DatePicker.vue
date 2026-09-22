@@ -1,40 +1,13 @@
-<script setup>
-const datesList = ref([])
-const dateModel = defineModel()
+<script setup lang="ts">
+import type { AcceptableValue } from 'reka-ui'
 
-const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+const dateModel = defineModel<string | number>()
 
-function getDatesRange(currentDate, days) {
-  const dates = []
-  for (let i = 0; i < days; i++) {
-    const date = new Date(currentDate)
-    date.setDate(currentDate.getDate() + i)
-    if (date.getDay() === 0 || date.getDay() === 6) {
-      days += 1
-      continue
-    }
-    dates.push({
-      date,
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate(),
-      weekday: weekdays[date.getDay()],
-    })
-  }
-  return dates
-}
-
-function toTimestamp(date) {
-  const d = new Date(date)
-  d.setUTCHours(0, 0, 0, 0)
-  return d.getTime()
-}
-
-datesList.value = getDatesRange(new Date(), 5)
+const datesList = upcomingWorkingDays(5)
 
 const selected = computed(() => (dateModel.value == null ? '' : String(dateModel.value)))
 
-function selectDate(value) {
+function selectDate(value: AcceptableValue) {
   dateModel.value = Number(value)
 }
 </script>
@@ -46,9 +19,9 @@ function selectDate(value) {
     @update:model-value="selectDate"
   >
     <RadioGroupItem
-      v-for="(date, index) in datesList"
-      :key="index"
-      :value="String(toTimestamp(date.date))"
+      v-for="date in datesList"
+      :key="date.timestamp"
+      :value="String(date.timestamp)"
       class="flex-1 cursor-pointer bg-base-200 px-2 py-2 text-sm text-base-content transition-colors hover:bg-base-content/15 data-[state=checked]:bg-primary data-[state=checked]:text-white data-[state=checked]:hover:bg-primary"
       :aria-label="`${date.day} ${date.weekday}`"
     >
