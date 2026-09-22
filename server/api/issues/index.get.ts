@@ -1,7 +1,6 @@
 import { count, desc } from 'drizzle-orm'
+import { PAGE_SIZE } from '../../../shared/constants'
 import { issues } from '../../db/schema'
-
-const PAGE_SIZE = 20
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)

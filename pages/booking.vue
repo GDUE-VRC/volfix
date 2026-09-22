@@ -1,49 +1,32 @@
-<script setup>
-const initFormData
-  = {
-    id: null,
-    uid: '',
-    name: '',
-    class: '',
-    phone: '',
-    problem: '',
-    regTime: null,
-    appTime: '',
-    closed: false,
-    closedTime: null,
-  }
-const formData = ref(initFormData)
+<script setup lang="ts">
+import { issueInsertSchema } from '~/shared/db/schema'
 
-const loading = ref(false)
-
-const toast = useToast()
-
-const requiredFields = [
-  ['name', '请填写姓名'],
-  ['uid', '请填写学号'],
-  ['phone', '请填写电话'],
-  ['class', '请填写班级'],
-  ['problem', '请填写详情'],
-  ['appTime', '请选择预约日期'],
-]
-
-function validate(payload) {
-  const missing = requiredFields.find(([key]) => !payload[key])
-  if (missing) {
-    return missing[1]
-  }
-  if (String(payload.phone).length !== 11) {
-    return '请填写11位电话'
-  }
-  if (String(payload.uid).length !== 11) {
-    return '请填写11位学号'
-  }
+const initFormData = {
+  name: '',
+  uid: '',
+  class: '',
+  phone: '',
+  problem: '',
+  appTime: '' as string | number,
 }
 
+const formData = ref({ ...initFormData })
+const loading = ref(false)
+const toast = useToast()
+
+const hasChecked = ref({
+  userAgreement: false,
+  triedMyself: false,
+  describedInDetail: false,
+  comeEarly: false,
+})
+
+const canSubmit = computed(() => Object.values(hasChecked.value).every(Boolean))
+
 async function submit() {
-  const message = validate(formData.value)
-  if (message) {
-    toast.error(message)
+  const result = issueInsertSchema.safeParse(formData.value)
+  if (!result.success) {
+    toast.error(result.error.issues[0]?.message ?? '提交内容不合法')
     return
   }
 
@@ -57,19 +40,12 @@ async function submit() {
     formData.value = { ...initFormData }
   }
   catch (error) {
-    toast.error(error.data?.message ?? '提交失败, 请稍后重试')
+    toast.error(errorText(error, '提交失败, 请稍后重试'))
   }
   finally {
     loading.value = false
   }
 }
-
-const hasChecked = ref({
-  userAgreement: false,
-  triedMyself: false,
-  describedInDetail: false,
-  comeEarly: false,
-})
 </script>
 
 <template>
@@ -159,10 +135,7 @@ const hasChecked = ref({
               <div class="my-auto font-medium text-base-content text-sm">我会尽量早来不让工作人员加班</div>
             </label>
           </div>
-          <AppButton v-show="!hasChecked.comeEarly" disabled>
-            提交预约
-          </AppButton>
-          <AppButton v-show="hasChecked.comeEarly" color="primary" :disabled="loading" @click="submit()">
+          <AppButton color="primary" :disabled="!canSubmit || loading" @click="submit()">
             {{ loading ? '提交中...' : '提交预约' }}
           </AppButton>
         </div>
