@@ -27,11 +27,11 @@ const VARIANTS: Record<ToastVariant, string> = {
         <ToastRoot
           v-for="toast in toasts"
           :key="toast.id"
-          class="app-toast flex items-start gap-3 rounded-lg border p-4 shadow-lg backdrop-blur-[8px]"
+          class="app-toast flex items-center gap-3 rounded-lg border p-4 shadow-lg backdrop-blur-[8px]"
           :class="VARIANTS[toast.variant]"
           @update:open="open => !open && dismiss(toast.id)"
         >
-          <Icon :name="ICONS[toast.variant]" class="mt-0.5 size-5 flex-none" />
+          <Icon :name="ICONS[toast.variant]" class="size-5 mb-auto" />
           <div class="min-w-0 flex-1">
             <ToastTitle class="text-sm font-semibold break-words">
               {{ toast.title }}
@@ -41,7 +41,7 @@ const VARIANTS: Record<ToastVariant, string> = {
             </ToastDescription>
           </div>
           <ToastClose
-            class="flex-none cursor-pointer rounded-md p-1 opacity-60 transition-opacity hover:opacity-100"
+            class="cursor-pointer rounded-md opacity-60 transition-opacity hover:opacity-100 leading-none flex"
             aria-label="关闭"
           >
             <Icon name="lucide:x" class="size-4" />
