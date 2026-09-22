@@ -2,6 +2,8 @@
 import process from 'node:process'
 import tailwindcss from '@tailwindcss/vite'
 
+const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRESQL_URL
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   ssr: true,
@@ -39,6 +41,11 @@ export default defineNuxtConfig({
   },
 
   hub: {
-    db: 'sqlite',
+    db: {
+      dialect: 'postgresql',
+      ...(databaseUrl
+        ? { driver: 'neon-http' }
+        : { applyMigrationsDuringBuild: false }),
+    },
   },
 })

@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm'
-import { issues } from '../../db/schema'
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)
@@ -12,9 +11,9 @@ export default defineEventHandler(async (event) => {
   }
 
   const [updated] = await db
-    .update(issues)
-    .set({ closed, closedTime: closed ? String(Date.now()) : null })
-    .where(eq(issues.id, id))
+    .update(schema.issues)
+    .set({ closed, closedTime: closed ? new Date() : null })
+    .where(eq(schema.issues.id, id))
     .returning()
 
   if (!updated) {

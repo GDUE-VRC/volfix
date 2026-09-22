@@ -1,6 +1,5 @@
 import { count, desc } from 'drizzle-orm'
 import { PAGE_SIZE } from '../../../shared/constants'
-import { issues } from '../../db/schema'
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)
@@ -8,12 +7,12 @@ export default defineEventHandler(async (event) => {
   const { page: rawPage } = getQuery(event)
   const page = Math.max(1, Math.trunc(Number(rawPage)) || 1)
 
-  const [row] = await db.select({ value: count() }).from(issues)
+  const [row] = await db.select({ value: count() }).from(schema.issues)
 
   const items = await db
     .select()
-    .from(issues)
-    .orderBy(desc(issues.appTime), desc(issues.id))
+    .from(schema.issues)
+    .orderBy(desc(schema.issues.appTime), desc(schema.issues.id))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE)
 

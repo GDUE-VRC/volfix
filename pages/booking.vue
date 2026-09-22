@@ -7,7 +7,7 @@ const initFormData = {
   class: '',
   phone: '',
   problem: '',
-  appTime: '' as string | number,
+  appTime: '',
 }
 
 const formData = ref({ ...initFormData })

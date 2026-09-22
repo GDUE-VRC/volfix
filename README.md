@@ -4,7 +4,7 @@
 
 ## 技术栈
 
-Nuxt 4（SSR）· Tailwind CSS 4 · Reka UI · Nuxt Icon（lucide）· NuxtHub（SQLite）· Drizzle ORM
+Nuxt 4（SSR）· Tailwind CSS 4 · Reka UI · Nuxt Icon（lucide）· NuxtHub（PostgreSQL）· Drizzle ORM
 
 项目结构约定：页面/组件在根目录，前后端共享的校验、类型与工具放在 `shared/`。
 
@@ -22,13 +22,14 @@ pnpm dev
 ```
 MANAGER_PASSWD=你的后台密码
 NUXT_SESSION_PASSWORD=会话 cookie 的签名密钥, 至少 32 字符
+DATABASE_URL=postgresql://...
 ```
 
-`MANAGER_PASSWD` 是登录后台时输入的密码；`NUXT_SESSION_PASSWORD` 可用 `openssl rand -base64 32` 生成。两者缺任一，`/login` 都无法正常登录。
+`MANAGER_PASSWD` 是登录后台时输入的密码；`NUXT_SESSION_PASSWORD` 可用 `openssl rand -base64 32` 生成。两者缺任一，`/login` 都无法正常登录。`DATABASE_URL` 本地可留空（走 PGlite），线上填 Neon 连接串。
 
 ## 数据库
 
-开发环境用的是本地 SQLite：`.data/db/sqlite.db`。表结构在 `server/db/schema.ts`，迁移文件在 `server/db/migrations/sqlite/`，`pnpm dev` 与 `pnpm build` 时会自动应用。
+PostgreSQL 方言：本地用 PGlite（`.data/db/pglite/`），线上设 `DATABASE_URL` 后切 Neon。表结构在 `server/db/schema.ts`，迁移在 `server/db/migrations/postgresql/`，`pnpm dev` / `pnpm build` 自动应用。
 
 ## 页面
 
@@ -51,4 +52,4 @@ pnpm clean       # 清理 .nuxt / .output / node_modules
 
 ## 部署
 
-线上需要单独配置 `MANAGER_PASSWD` 环境变量，否则后台无法登录。
+Vercel + Neon：用 Neon 集成注入 `DATABASE_URL`，并配置 `MANAGER_PASSWD`、`NUXT_SESSION_PASSWORD`；构建时自动应用迁移。

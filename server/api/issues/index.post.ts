@@ -1,4 +1,4 @@
-import { issueInsertSchema, issues } from '../../db/schema'
+import { issueInsertSchema } from '../../../shared/db/schema'
 
 export default defineEventHandler(async (event) => {
   const result = issueInsertSchema.safeParse(await readBody(event))
@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const [created] = await db
-    .insert(issues)
-    .values({ ...result.data, regTime: String(Date.now()), closed: false })
+    .insert(schema.issues)
+    .values({ ...result.data, regTime: new Date() })
     .returning()
 
   setResponseStatus(event, 201)
