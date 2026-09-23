@@ -1,4 +1,4 @@
-import { isWorkday } from 'chinese-days'
+import chineseDays from 'chinese-days'
 import { Temporal } from 'temporal-polyfill'
 
 const TZ = 'Asia/Shanghai'
@@ -58,7 +58,7 @@ export function upcomingWorkingDays(count: number): WorkingDay[] {
   const days: WorkingDay[] = []
   while (days.length < count) {
     const date = cursor.toString().slice(0, 10)
-    if (isWorkday(date)) {
+    if (chineseDays.isWorkday(date)) {
       days.push({ date, day: cursor.day, weekday: WEEKDAYS[cursor.dayOfWeek % 7] ?? '' })
     }
     cursor = cursor.add({ days: 1 })
