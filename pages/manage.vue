@@ -7,14 +7,9 @@ definePageMeta({ middleware: 'auth' })
 const page = ref(1)
 const actionError = ref('')
 
-const { data, error, refresh } = await useFetch<{
-  items: Issue[]
-  total: number
-  page: number
-  pageSize: number
-}>('/api/issues', {
-  query: { page },
-})
+-const { data, error, refresh } = await useFetch('/api/issues', {
+- query: { page },
+-})
 
 const issueList = computed(() => data.value?.items ?? [])
 const total = computed(() => data.value?.total ?? 0)
