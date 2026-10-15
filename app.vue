@@ -1,0 +1,17 @@
+<script setup lang="ts">
+useHead({
+  title: '电脑义务维修中心',
+})
+</script>
+
+<template>
+  <div class="min-h-screen flex flex-col bg-base-100 transition-colors">
+    <Header />
+    <NuxtPage class="flex-grow" />
+    <p class="text-xs text-base-content/50 text-center p-4 mr-auto">
+      &copy; 2025. 电脑义务维修中心. All rights reserved.
+    </p>
+  </div>
+  <AppToasterProvider />
+  <AppScrollDown />
+</template>
