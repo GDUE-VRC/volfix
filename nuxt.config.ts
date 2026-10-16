@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite'
 const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRESQL_URL
 
 export default defineNuxtConfig({
+  future: {
+    compatibilityVersion: 5,
+  },
   compatibilityDate: '2024-11-01',
   ssr: true,
   devtools: {
@@ -13,7 +16,8 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  modules: ['@nuxthub/core', 'reka-ui/nuxt', '@nuxt/icon', 'nuxt-auth-utils', '@nuxtjs/color-mode'],
+  modules: ['@nuxthub/core', 
+    'reka-ui/nuxt', '@nuxt/icon', 'nuxt-auth-utils', '@nuxtjs/color-mode'],
   css: ['~/assets/main.css'],
 
   colorMode: {

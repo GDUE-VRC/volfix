@@ -1,8 +1,8 @@
-minimumReleaseAgeExcludePrune: true
+packages:
+  - '.'
+minimumReleaseAge: 0
 
-trustPolicy: no-downgrade
-trustPolicyExclude:
-  - semver@6.3.1
+minimumReleaseAgeExcludePrune: true
 
 shellEmulator: true
 
