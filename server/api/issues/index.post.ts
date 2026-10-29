@@ -1,7 +1,8 @@
+import { createError, defineEventHandler, readBody, setResponseStatus } from 'nuxt/server'
 import { issueInsertSchema } from '../../../shared/db/schema'
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
+  const body = await readBody<Record<string, unknown>>(event)
 
   if (!await consumeProof(body.capToken)) {
     throw createError({ statusCode: 403, message: '人机校验失败' })

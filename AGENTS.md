@@ -14,7 +14,7 @@
 
 ## 环境变量
 
-复制 `.env.example` 为 `.env`，填 `MANAGER_PASSWD`（后台登录密码）和 `NUXT_SESSION_PASSWORD`（≥32 字符，`openssl rand -base64 32`）。缺任一 `/login` 都无法登录。`DATABASE_URL` 可选：本地留空则用 PGlite，线上填 Neon 连接串。
+复制 `.env.example` 为 `.env`，填 `MANAGER_PASSWD`（后台登录密码）和 `NUXT_APP_SECRET`（≥32 字符，`openssl rand -base64 32`）。缺任一 `/login` 都无法登录。`DATABASE_URL` 可选：本地留空则用 PGlite，线上填 Neon 连接串。
 
 ## 数据库与迁移
 

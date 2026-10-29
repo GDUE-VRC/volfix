@@ -1,4 +1,5 @@
 import { and, eq, isNull } from 'drizzle-orm'
+import { setResponseStatus } from 'nuxt/server'
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)

@@ -7,12 +7,7 @@ definePageMeta({ middleware: 'auth' })
 const page = ref(1)
 const actionError = ref('')
 
-const { data, error, refresh } = await useFetch<{
-  items: Issue[]
-  total: number
-  page: number
-  pageSize: number
-}>('/api/issues', {
+const { data, error, refresh } = await useFetch('/api/issues', {
   query: { page },
 })
 
@@ -21,7 +16,7 @@ const total = computed(() => data.value?.total ?? 0)
 const pageSize = computed(() => data.value?.pageSize ?? PAGE_SIZE)
 const errorMessage = computed(() => actionError.value || (error.value ? errorText(error.value, '获取列表失败, 请稍后重试') : ''))
 
-async function mutate(url: string, options?: Parameters<typeof $fetch>[1]) {
+async function mutate(url: string, options?: { method?: 'PATCH' | 'DELETE', body?: Record<string, unknown> }) {
   actionError.value = ''
   try {
     await $fetch(url, options)
