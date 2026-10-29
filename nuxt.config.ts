@@ -6,6 +6,12 @@ const databaseUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || proc
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
+  future: {
+    compatibilityVersion: 5,
+  },
+  experimental: {
+    nitroAutoImports: true,
+  },
   ssr: true,
   devtools: {
     enabled: true,

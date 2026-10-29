@@ -1,5 +1,6 @@
 import type { ValidateChallengeBody } from 'capjs-core'
 import { validateChallenge } from 'capjs-core'
+import { defineEventHandler, readBody, useRuntimeConfig } from 'nuxt/server'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<ValidateChallengeBody>(event)
