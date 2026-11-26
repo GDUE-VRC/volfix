@@ -31,7 +31,7 @@
 - Nuxt 4 根目录布局：`pages/ components/ composables/ middleware/`。
 - `shared/` 只有 `utils/**` 和 `types/**` 会前后端自动导入。`shared/constants.ts`、`shared/db/schema.ts` 必须显式 import（前端用 `~/shared/...`，server 用相对路径）。
 - `server/utils/*` server 端自动导入（如 `getIssueId`）。
-- API：`server/api/issues/index.get.ts`（分页列表，需登录）、`index.post.ts`（公开预约）、`[id].patch.ts` / `[id].delete.ts`（需登录）、`server/api/session/index.post.ts`（登录）。
+- API：`server/api/issues/index.get.ts`（分页列表，需登录）、`index.post.ts`（公开预约，同一学号每个自然日只能提交一次，重复提交返回 409）、`[id].patch.ts` / `[id].delete.ts`（需登录）、`server/api/session/index.post.ts`（登录）。
 - 鉴权用 nuxt-auth-utils：服务端 `await requireUserSession(event)`；客户端 `middleware/auth.ts` 保护 `/manage`，登录后 session 为 `{ user: { manager: true } }`。
 
 ## 表单校验与时区
