@@ -21,11 +21,11 @@ pnpm dev
 
 ```
 MANAGER_PASSWD=你的后台密码
-NUXT_SESSION_PASSWORD=会话 cookie 的签名密钥, 至少 32 字符
+NUXT_APP_SECRET=应用密钥, 至少 32 字符
 DATABASE_URL=postgresql://...
 ```
 
-`MANAGER_PASSWD` 是登录后台时输入的密码；`NUXT_SESSION_PASSWORD` 可用 `openssl rand -base64 32` 生成。两者缺任一，`/login` 都无法正常登录。`DATABASE_URL` 本地可留空（走 PGlite），线上填 Neon 连接串。
+`MANAGER_PASSWD` 是登录后台时输入的密码；`NUXT_APP_SECRET` 可用 `openssl rand -base64 32` 生成，会话签名与 cap 校验都用它派生。两者缺任一，`/login` 都无法正常登录。`DATABASE_URL` 本地可留空（走 PGlite），线上填 Neon 连接串。
 
 ## 数据库
 
@@ -52,4 +52,4 @@ pnpm clean       # 清理 .nuxt / .output / node_modules
 
 ## 部署
 
-Vercel + Neon：用 Neon 集成注入 `DATABASE_URL`，并配置 `MANAGER_PASSWD`、`NUXT_SESSION_PASSWORD`；构建时自动应用迁移。
+Vercel + Neon：用 Neon 集成注入 `DATABASE_URL`，并配置 `MANAGER_PASSWD`、`NUXT_APP_SECRET`；构建时自动应用迁移。

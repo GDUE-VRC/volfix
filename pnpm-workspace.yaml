@@ -1,10 +1,15 @@
 minimumReleaseAgeExcludePrune: true
+minimumReleaseAgeExclude:
+  - seroval@1.7.3
 
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - semver@6.3.1
 
 shellEmulator: true
+
+overrides:
+  seroval: 1.7.3
 
 allowBuilds:
   esbuild: true
