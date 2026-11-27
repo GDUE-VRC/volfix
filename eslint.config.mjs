@@ -8,6 +8,7 @@ export default antfu(
   },
   {
     rules: {
+      'antfu/reasonable-newline': 'off',
       'no-undef': 'off',
     },
   },
