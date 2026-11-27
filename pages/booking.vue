@@ -94,9 +94,6 @@ async function submit() {
             <span class="text-sm text-base-content/80"> 预约日期 </span>
           </div>
           <DatePicker v-model="formData.appTime" class="w-full" />
-          <div>
-            <span class="text-xs text-base-content/50"> 每个学号每天只能预约一次, 请勿重复提交 </span>
-          </div>
         </div>
         <label class="w-full">
           <div>
