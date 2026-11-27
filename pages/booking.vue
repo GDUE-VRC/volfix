@@ -69,7 +69,7 @@ async function submit() {
         <div class="flex items-center gap-x-2">
           <Icon name="lucide:clock" class="flex-none scale-110 text-base-content/40" />
           <p class="text-sm text-base-content">
-            工作日 19:00 - 20:00
+            工作日 20:40 - 21:30
           </p>
         </div>
         <div class="flex items-center gap-x-2">
@@ -94,6 +94,9 @@ async function submit() {
             <span class="text-sm text-base-content/80"> 预约日期 </span>
           </div>
           <DatePicker v-model="formData.appTime" class="w-full" />
+          <div>
+            <span class="text-xs text-base-content/50"> 每个学号每天只能预约一次, 请勿重复提交 </span>
+          </div>
         </div>
         <label class="w-full">
           <div>

@@ -53,6 +53,11 @@ export function beijingWeekKey(value: TimeValue): string {
   return date ? date.subtract({ days: date.dayOfWeek - 1 }).toString().slice(0, 10) : ''
 }
 
+/** 北京时间「今天」的开始时刻, 用于按自然日去重 */
+export function beijingTodayStart(): Date {
+  return new Date(Temporal.Now.zonedDateTimeISO(TZ).toPlainDate().toZonedDateTime(TZ).epochMilliseconds)
+}
+
 export function upcomingWorkingDays(count: number): WorkingDay[] {
   let cursor = Temporal.Now.zonedDateTimeISO(TZ)
   const days: WorkingDay[] = []
