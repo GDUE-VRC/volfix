@@ -26,6 +26,7 @@
     "nitro": "3.0.261103-rc",
     "nuxt": "^4.7.0",
     "nuxt-auth-utils": "^0.6.2",
+    "pako": "2.1.0",
     "reka-ui": "^2.11.0",
     "temporal-polyfill": "^1.0.8",
     "vue": "^3.5.46",
