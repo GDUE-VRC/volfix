@@ -53,6 +53,10 @@ export function beijingWeekKey(value: TimeValue): string {
   return date ? date.subtract({ days: date.dayOfWeek - 1 }).toString().slice(0, 10) : ''
 }
 
+export function hoursAgo(hours: number): Date {
+  return new Date(Temporal.Now.instant().subtract({ hours }).epochMilliseconds)
+}
+
 export function upcomingWorkingDays(count: number): WorkingDay[] {
   let cursor = Temporal.Now.zonedDateTimeISO(TZ)
   const days: WorkingDay[] = []
