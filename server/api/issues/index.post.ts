@@ -15,21 +15,20 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: result.error.issues[0]?.message ?? '提交内容不合法' })
   }
 
-  // 同一学号每个自然日（北京时间）只能提交一次, 软删除的记录不占用当日名额
-  const [todayIssue] = await db
+  const [recentIssue] = await db
     .select({ id: schema.issues.id })
     .from(schema.issues)
     .where(and(
       eq(schema.issues.uid, result.data.uid),
       isNull(schema.issues.deletedAt),
-      gte(schema.issues.regTime, beijingTodayStart()),
+      gte(schema.issues.regTime, hoursAgo(12)),
     ))
     .limit(1)
 
-  if (todayIssue) {
+  if (recentIssue) {
     throw createError({
       statusCode: 409,
-      message: '该学号今天已提交过预约，每人每天只能预约一次',
+      message: '该学号 12 小时内已提交过预约，请稍后再试',
     })
   }
 
