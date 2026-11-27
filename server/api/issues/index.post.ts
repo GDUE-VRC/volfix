@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
   // 同一学号每个自然日（北京时间）只能提交一次, 软删除的记录不占用当日名额
   const [todayIssue] = await db
-    .select({ appTime: schema.issues.appTime })
+    .select({ id: schema.issues.id })
     .from(schema.issues)
     .where(and(
       eq(schema.issues.uid, result.data.uid),
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
   if (todayIssue) {
     throw createError({
       statusCode: 409,
-      message: `该学号今天已预约过（预约日期 ${todayIssue.appTime}），每人每天只能预约一次`,
+      message: '该学号今天已提交过预约，每人每天只能预约一次',
     })
   }
 
